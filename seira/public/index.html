@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Σειρά — δίκαιο μοίρασμα αγγαρειών</title>
+<meta name="description" content="Ποιος κάνει τι αυτή τη βδομάδα: οι αγγαρείες μοιράζονται δίκαια, με βάση τις προτιμήσεις και όσα έχει ήδη κάνει ο καθένας.">
+<link rel="stylesheet" href="/styles.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔁</text></svg>">
+</head>
+<body>
+
+<header class="topbar">
+  <h1><span aria-hidden="true">🔁</span> Σειρά</h1>
+  <p class="tagline">Ποιος κάνει τι — χωρίς γκρίνια, χωρίς «πάλι εγώ;».</p>
+</header>
+
+<main>
+
+  <!-- ── Αρχική ─────────────────────────────────────────── -->
+  <section id="view-home" class="view">
+    <div class="card">
+      <h2>Νέος πίνακας</h2>
+      <form id="create-form" autocomplete="off">
+        <label for="board-name">Πού;</label>
+        <input id="board-name" placeholder="π.χ. Σπίτι Ιπποκράτους" maxlength="40" required>
+
+        <label>Άτομα</label>
+        <div id="person-inputs" class="stack"></div>
+        <button type="button" id="add-person-input" class="link-btn">+ Πρόσθεσε άτομο</button>
+
+        <label>Αγγαρείες <span class="muted small">(και πόσο βαριές είναι)</span></label>
+        <div id="task-inputs" class="stack"></div>
+        <button type="button" id="add-task-input" class="link-btn">+ Πρόσθεσε αγγαρεία</button>
+
+        <button type="submit" class="primary">Δημιουργία πίνακα</button>
+      </form>
+    </div>
+
+    <div class="card">
+      <h2>Έχεις ήδη κωδικό;</h2>
+      <form id="join-form" autocomplete="off">
+        <label for="join-code">Κωδικός πίνακα</label>
+        <input id="join-code" placeholder="K7M2QX" maxlength="6" class="code-input" required>
+        <button type="submit" class="secondary">Άνοιγμα</button>
+      </form>
+      <div id="recent" class="recent" hidden>
+        <h3>Πρόσφατοι πίνακες</h3>
+        <ul id="recent-list"></ul>
+      </div>
+    </div>
+
+    <div class="card how">
+      <h2>Πώς βγαίνει η σειρά</h2>
+      <ol>
+        <li>Ο καθένας δηλώνει τι <strong>προτιμά</strong> και τι <strong>αποφεύγει</strong>.</li>
+        <li>Κάθε γύρο, η εφαρμογή λύνει το πρόβλημα ανάθεσης και βρίσκει τον
+            <strong>συνολικά λιγότερο δυσάρεστο</strong> συνδυασμό.</li>
+        <li>Όποιος έχει κάνει λιγότερα προηγείται, και κανείς δεν κολλάει
+            στην ίδια αγγαρεία δύο φορές στη σειρά.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ── Πίνακας ────────────────────────────────────────── -->
+  <section id="view-board" class="view" hidden>
+    <div class="board-head">
+      <div>
+        <h2 id="board-title"></h2>
+        <p class="muted" id="board-sub"></p>
+      </div>
+      <div class="code-box">
+        <span class="muted">Κωδικός</span>
+        <div class="code-row">
+          <code id="board-code"></code>
+          <button id="copy-link" class="link-btn" type="button">Αντιγραφή συνδέσμου</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card highlight card-current">
+      <div class="current-head">
+        <h3 id="current-title">Αυτή τη φορά</h3>
+        <button id="delete-round" class="link-btn danger" type="button" hidden>Αναίρεση γύρου</button>
+      </div>
+      <div id="current-round" class="assignment-grid"></div>
+
+      <div class="absent">
+        <span class="muted small">Λείπει κανείς αυτόν τον γύρο;</span>
+        <div id="absent-list" class="chips"></div>
+      </div>
+      <button id="draw-round" class="primary" type="button">Βγάλε τη σειρά</button>
+    </div>
+
+    <div class="card card-prefs">
+      <h3>Προτιμήσεις</h3>
+      <p class="muted small">Πάτα ένα κελί: 😐 ουδέτερο → 😀 το προτιμώ → 🙁 το αποφεύγω.</p>
+      <div class="table-scroll">
+        <table id="prefs-table" class="prefs"></table>
+      </div>
+    </div>
+
+    <div class="columns">
+      <div class="card card-load">
+        <h3>Φόρτος μέχρι τώρα</h3>
+        <ul id="load-list" class="loads"></ul>
+        <form id="person-form" class="inline-form" autocomplete="off">
+          <input id="new-person" placeholder="Πρόσθεσε άτομο" maxlength="40" required>
+          <button type="submit" class="secondary small-btn">+</button>
+        </form>
+      </div>
+
+      <div class="card card-tasks">
+        <h3>Αγγαρείες</h3>
+        <ul id="task-list" class="tasks"></ul>
+        <form id="task-form" class="inline-form" autocomplete="off">
+          <input id="new-task" placeholder="Πρόσθεσε αγγαρεία" maxlength="40" required>
+          <select id="new-task-weight" class="weight-select">
+            <option value="1">εύκολη</option>
+            <option value="2" selected>κανονική</option>
+            <option value="3">βαριά</option>
+          </select>
+          <button type="submit" class="secondary small-btn">+</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="card card-history">
+      <h3>Ιστορικό</h3>
+      <div class="table-scroll">
+        <table id="history-table" class="history"></table>
+      </div>
+    </div>
+
+    <button id="back-home" class="link-btn back">← Πίσω στην αρχική</button>
+  </section>
+</main>
+
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+<script src="/app.js"></script>
+</body>
+</html>

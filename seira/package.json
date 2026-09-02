@@ -1,0 +1,15 @@
+{
+  "name": "seira",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Σειρά — δίκαιο μοίρασμα αγγαρειών με βάση προτιμήσεις και ιστορικό φόρτου.",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "test": "node --test \"test/*.test.js\""
+  },
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "license": "MIT"
+}
