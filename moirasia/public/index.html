@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Μοιρασιά — μοίρασε τα έξοδα της παρέας</title>
+<meta name="description" content="Γράψε ποιος πλήρωσε τι και δες αμέσως ποιος χρωστάει σε ποιον, με τις λιγότερες δυνατές πληρωμές.">
+<link rel="stylesheet" href="/styles.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧾</text></svg>">
+</head>
+<body>
+
+<header class="topbar">
+  <h1><span aria-hidden="true">🧾</span> Μοιρασιά</h1>
+  <p class="tagline">Ποιος πλήρωσε τι — και ποιος χρωστάει σε ποιον.</p>
+</header>
+
+<main id="main">
+
+  <!-- ── Αρχική ─────────────────────────────────────────── -->
+  <section id="view-home" class="view">
+    <div class="card">
+      <h2>Νέα παρέα</h2>
+      <form id="create-form" autocomplete="off">
+        <label for="group-name">Όνομα παρέας</label>
+        <input id="group-name" name="groupName" placeholder="π.χ. Τριήμερο στη Νάξο" maxlength="40" required>
+
+        <label>Άτομα</label>
+        <div id="member-inputs" class="member-inputs"></div>
+        <button type="button" id="add-member-input" class="link-btn">+ Πρόσθεσε άτομο</button>
+
+        <button type="submit" class="primary">Δημιουργία παρέας</button>
+      </form>
+    </div>
+
+    <div class="card">
+      <h2>Έχεις ήδη κωδικό;</h2>
+      <form id="join-form" autocomplete="off">
+        <label for="join-code">Κωδικός παρέας</label>
+        <input id="join-code" placeholder="K7M2QX" maxlength="6" class="code-input" required>
+        <button type="submit" class="secondary">Άνοιγμα</button>
+      </form>
+      <div id="recent" class="recent" hidden>
+        <h3>Πρόσφατες παρέες</h3>
+        <ul id="recent-list"></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Παρέα ──────────────────────────────────────────── -->
+  <section id="view-group" class="view" hidden>
+    <div class="group-head">
+      <div>
+        <h2 id="group-title"></h2>
+        <p class="muted">Σύνολο εξόδων: <strong id="group-total">0,00 €</strong></p>
+      </div>
+      <div class="code-box">
+        <span class="muted">Κωδικός</span>
+        <div class="code-row">
+          <code id="group-code"></code>
+          <button id="copy-link" class="link-btn" type="button">Αντιγραφή συνδέσμου</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="columns">
+      <div class="col">
+        <div class="card card-new-expense">
+          <h3>Νέο έξοδο</h3>
+          <form id="expense-form" autocomplete="off">
+            <label for="expense-description">Τι;</label>
+            <input id="expense-description" placeholder="π.χ. Σούπερ μάρκετ" maxlength="80" required>
+
+            <div class="row">
+              <div>
+                <label for="expense-amount">Πόσο (€)</label>
+                <input id="expense-amount" inputmode="decimal" placeholder="24,50" required>
+              </div>
+              <div>
+                <label for="expense-payer">Ποιος πλήρωσε;</label>
+                <select id="expense-payer" required></select>
+              </div>
+            </div>
+
+            <label>Για ποιους;</label>
+            <div class="participants">
+              <button type="button" id="toggle-all" class="link-btn">Επιλογή όλων / κανενός</button>
+              <div id="participant-list" class="chips"></div>
+            </div>
+
+            <button type="submit" class="primary">Καταχώρηση</button>
+          </form>
+        </div>
+
+        <div class="card card-expenses">
+          <h3>Έξοδα</h3>
+          <ul id="expense-list" class="expense-list"></ul>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card highlight card-settle">
+          <h3>Ξεκαθάρισμα λογαριασμών</h3>
+          <p class="muted small">Οι λιγότερες δυνατές πληρωμές για να μηδενίσουν όλοι.</p>
+          <ul id="settlement-list" class="settlements"></ul>
+        </div>
+
+        <div class="card card-balances">
+          <h3>Υπόλοιπα</h3>
+          <ul id="balance-list" class="balances"></ul>
+        </div>
+
+        <div class="card card-members">
+          <h3>Άτομα</h3>
+          <ul id="member-list" class="members"></ul>
+          <form id="member-form" class="inline-form" autocomplete="off">
+            <input id="new-member" placeholder="Πρόσθεσε άτομο" maxlength="40" required>
+            <button type="submit" class="secondary small-btn">+</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <button id="back-home" class="link-btn back">← Πίσω στην αρχική</button>
+  </section>
+</main>
+
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+<script src="/app.js"></script>
+</body>
+</html>

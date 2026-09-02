@@ -1,0 +1,15 @@
+{
+  "name": "moirasia",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Μοιρασιά — μοίρασε τα έξοδα της παρέας και δες ποιος χρωστάει σε ποιον.",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "test": "node --test \"test/*.test.js\""
+  },
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "license": "MIT"
+}
