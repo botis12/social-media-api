@@ -1,0 +1,7 @@
+# CUSTOMIZE — swap your-domain.com for your real domain.
+User-agent: *
+Allow: /
+Disallow: /privacy.html
+Disallow: /terms.html
+
+Sitemap: https://www.your-domain.com/sitemap.xml

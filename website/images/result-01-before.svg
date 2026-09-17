@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900" role="img" aria-label="BEFORE placeholder">
+  <defs>
+    <pattern id="h" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(38)">
+      <line x1="0" y1="0" x2="0" y2="14" stroke="#0B0B0B" stroke-opacity=".14" stroke-width="1"/>
+    </pattern>
+    <linearGradient id="v" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0B0B0B" stop-opacity=".10"/>
+      <stop offset="1" stop-color="#0B0B0B" stop-opacity=".02"/>
+    </linearGradient>
+    <filter id="g"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="3"/><feColorMatrix type="saturate" values="0"/></filter>
+  </defs>
+  <rect width="1200" height="900" fill="#E4E4E0"/>
+  <rect width="1200" height="900" fill="url(#h)"/>
+  <rect width="1200" height="900" fill="url(#v)"/>
+  <rect width="1200" height="900" filter="url(#g)" opacity=".05"/>
+  <g stroke="#0B0B0B" stroke-opacity=".22" fill="none" stroke-width="1">
+    <rect x="12" y="12" width="1176" height="876"/>
+    <line x1="12" y1="12" x2="1188" y2="888"/>
+    <line x1="1188" y1="12" x2="12" y2="888"/>
+  </g>
+  <circle cx="600" cy="450" r="128" fill="#E4E4E0" stroke="#0B0B0B" stroke-opacity=".3"/>
+  <text x="50%" y="450" fill="#0B0B0B" fill-opacity=".85" font-family="Archivo, Helvetica, Arial, sans-serif" font-size="40" font-weight="800" letter-spacing="2" text-anchor="middle" text-transform="uppercase">BEFORE</text>
+  <text x="50%" y="514" fill="#0B0B0B" fill-opacity=".45" font-family="ui-monospace, Menlo, monospace" font-size="22" letter-spacing="3" text-anchor="middle">CLIENT 01 · 1200×900</text>
+</svg>
