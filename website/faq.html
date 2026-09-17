@@ -1,72 +1,64 @@
 <!doctype html>
-<html lang="en">
+<html lang="el">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- ====== SEO: CUSTOMIZE every line in this block ====== -->
-<title>Frequently Asked Questions | APEX PERFORMANCE</title>
-<meta name="description" content="Answers on pricing, session frequency, online vs in-person coaching, injuries, contracts and what happens in your first block with [YOUR NAME].">
+<!-- ====== SEO: ΠΡΟΣΑΡΜΟΓΗ σε κάθε γραμμή ====== -->
+<title>Συχνές Ερωτήσεις | APEX PERFORMANCE</title>
+<meta name="description" content="Απαντήσεις για τιμές, συχνότητα προπόνησης, online vs δια ζώσης, τραυματισμούς και δεσμεύσεις.">
 <link rel="canonical" href="https://www.your-domain.com/faq.html">
 <meta name="robots" content="index, follow, max-image-preview:large">
-<meta name="author" content="[YOUR NAME]">
+<meta name="author" content="[ΤΟ ΟΝΟΜΑ ΣΟΥ]">
 <meta name="theme-color" content="#0B0B0B">
 
-<!-- Open Graph / social sharing -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="APEX PERFORMANCE">
-<meta property="og:title" content="Frequently Asked Questions | APEX PERFORMANCE">
-<meta property="og:description" content="Answers on pricing, session frequency, online vs in-person coaching, injuries, contracts and what happens in your first block with [YOUR NAME].">
+<meta property="og:title" content="Συχνές Ερωτήσεις | APEX PERFORMANCE">
+<meta property="og:description" content="Απαντήσεις για τιμές, συχνότητα προπόνησης, online vs δια ζώσης, τραυματισμούς και δεσμεύσεις.">
 <meta property="og:url" content="https://www.your-domain.com/faq.html">
 <meta property="og:image" content="https://www.your-domain.com/images/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="APEX PERFORMANCE frequently asked questions">
-<meta property="og:locale" content="en_GB">
+<meta property="og:locale" content="el_GR">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Frequently Asked Questions | APEX PERFORMANCE">
-<meta name="twitter:description" content="Answers on pricing, session frequency, online vs in-person coaching, injuries, contracts and what happens in your first block with [YOUR NAME].">
+<meta name="twitter:title" content="Συχνές Ερωτήσεις | APEX PERFORMANCE">
+<meta name="twitter:description" content="Απαντήσεις για τιμές, συχνότητα προπόνησης, online vs δια ζώσης, τραυματισμούς και δεσμεύσεις.">
 <meta name="twitter:image" content="https://www.your-domain.com/images/og-image.png">
 
 <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="images/favicon.svg">
 <link rel="manifest" href="site.webmanifest">
 
-<!-- Fonts. CUSTOMIZE — change families here AND in css/styles.css (--font-*). -->
+<!-- Γραμματοσειρές με πλήρη υποστήριξη ελληνικών.
+     ΠΡΟΣΟΧΗ: αν τις αλλάξεις, βεβαιώσου ότι η νέα οικογένεια έχει
+     ελληνικό subset — πολλές δημοφιλείς (Archivo, Anton, Oswald) δεν έχουν. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@300;400;500;600&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@300;400;500;600&display=swap" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@300;400;500;600&display=swap"></noscript>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+Display:wdth,wght@62.5..100,400..900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+Display:wdth,wght@62.5..100,400..900&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+Display:wdth,wght@62.5..100,400..900&display=swap"></noscript>
 
 <link rel="stylesheet" href="css/styles.css">
-<!-- Without JS the accordion cannot toggle, so show every answer open. -->
 <noscript><style>.faq__a{grid-template-rows:1fr}.faq__icon{display:none}</style></noscript>
-
-<!-- ====== FAQ STRUCTURED DATA ======
-     IMPORTANT: if you edit a question or answer below, edit the matching
-     entry here too. Google penalises schema that doesn't match the page. -->
+<!-- ΠΡΟΣΟΧΗ: αν αλλάξεις ερώτηση/απάντηση, ενημέρωσε και το JSON-LD. -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    { "@type": "Question", "name": "Do I need to already be fit to start?",
-      "acceptedAnswer": { "@type": "Answer", "text": "No. You need to be training, or ready to start training, consistently. I coach competing athletes and complete beginners with an athletic goal — the assessment sets the starting point, so nobody starts somewhere they can't handle." } },
-    { "@type": "Question", "name": "How many sessions a week will I need to do?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Usually three to four, including your sport. I would rather build three sessions you complete every week than five you abandon in a month. Frequency is set during the assessment around your actual schedule." } },
-    { "@type": "Question", "name": "Is online coaching really as good as in person?",
-      "acceptedAnswer": { "@type": "Answer", "text": "For most athletes, yes — provided you film your main lifts. You lose the hands-on cueing; you keep the programming, the video review and the testing. Athletes who need technical rebuilding from scratch do better in person, at least for the first block." } },
-    { "@type": "Question", "name": "What equipment do I need for online coaching?",
-      "acceptedAnswer": { "@type": "Answer", "text": "A barbell, plates, a rack and somewhere to run. If you're missing something I build the block around what you actually have — tell me at the intake stage rather than buying kit first." } },
-    { "@type": "Question", "name": "How much does it cost?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Programming-only starts at a one-off fee, online coaching and 1:1 are monthly. Exact pricing depends on session frequency and block length — see the Services page for starting points, and I quote you properly after the enquiry." } },
-    { "@type": "Question", "name": "Am I locked into a contract?",
-      "acceptedAnswer": { "@type": "Answer", "text": "No rolling contract you can't leave. Coaching is billed monthly with 30 days' notice to stop. I ask for a minimum of one full block — around twelve weeks — because anything shorter can't be meaningfully tested." } },
-    { "@type": "Question", "name": "I'm carrying an injury. Can you still coach me?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Often, yes — but I am a coach, not a clinician. If you are under the care of a physiotherapist or doctor I work alongside them and follow their restrictions. If you haven't been assessed and something is painful, get that done first." } },
-    { "@type": "Question", "name": "How soon will I see results?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Strength markers usually move within four to six weeks. Speed and jump numbers take longer, which is why the first formal retest sits at eight to twelve weeks. Anyone promising a transformation faster than that is selling something." } }
+    { "@type": "Question", "name": "Πρέπει να είμαι ήδη σε φόρμα για να ξεκινήσω;",
+      "acceptedAnswer": { "@type": "Answer", "text": "Όχι. Αρκεί να προπονείσαι ή να είσαι έτοιμος να ξεκινήσεις με συνέπεια. Η αξιολόγηση ορίζει το σημείο εκκίνησης, οπότε κανείς δεν ξεκινά από κάπου που δεν αντέχει." } },
+    { "@type": "Question", "name": "Πόσες προπονήσεις την εβδομάδα χρειάζονται;",
+      "acceptedAnswer": { "@type": "Answer", "text": "Συνήθως τρεις με τέσσερις, μαζί με το άθλημά σου. Προτιμώ τρεις που θα κάνεις κάθε εβδομάδα από πέντε που θα παρατήσεις σε έναν μήνα." } },
+    { "@type": "Question", "name": "Το online coaching είναι το ίδιο καλό;",
+      "acceptedAnswer": { "@type": "Answer", "text": "Για τους περισσότερους αθλητές ναι, εφόσον βιντεοσκοπείς τις βασικές άρσεις. Χάνεις τη διόρθωση από κοντά, κρατάς τον προγραμματισμό, τον έλεγχο βίντεο και τις μετρήσεις." } },
+    { "@type": "Question", "name": "Πόσο κοστίζει;",
+      "acceptedAnswer": { "@type": "Answer", "text": "Το «μόνο πρόγραμμα» είναι εφάπαξ, το online και η ατομική προπόνηση χρεώνονται μηνιαίως. Οι αφετηρίες είναι στη σελίδα Υπηρεσίες και σου δίνω ακριβή προσφορά μετά τη φόρμα." } },
+    { "@type": "Question", "name": "Δεσμεύομαι με συμβόλαιο;",
+      "acceptedAnswer": { "@type": "Answer", "text": "Όχι. Η χρέωση είναι μηνιαία με 30 ημέρες προειδοποίηση για διακοπή. Ζητώ κατ ελάχιστον έναν πλήρη κύκλο, περίπου δώδεκα εβδομάδες, γιατί οτιδήποτε μικρότερο δεν μετριέται ουσιαστικά." } },
+    { "@type": "Question", "name": "Έχω τραυματισμό. Μπορείς να με προπονήσεις;",
+      "acceptedAnswer": { "@type": "Answer", "text": "Συχνά ναι, αλλά είμαι προπονητής, όχι κλινικός. Αν σε παρακολουθεί φυσικοθεραπευτής ή ιατρός, δουλεύω μαζί τους και ακολουθώ τους περιορισμούς τους." } }
   ]
 }
 </script>
@@ -74,249 +66,152 @@
 <body>
 <div class="grain" aria-hidden="true"></div>
 <div class="progress" aria-hidden="true"></div>
-<a class="skip-link" href="#main">Skip to content</a>
-<!-- ====== HEADER ====== -->
+<a class="skip-link" href="#main">Μετάβαση στο περιεχόμενο</a>
 <header class="nav">
   <div class="shell nav__inner">
-    <!-- CUSTOMIZE — your brand name. Appears here, in the menu and in the footer. -->
-    <a class="brand" href="index.html" aria-label="APEX PERFORMANCE — home">
+    <!-- ΠΡΟΣΑΡΜΟΓΗ — η επωνυμία σου. Εμφανίζεται εδώ, στο μενού και στο footer. -->
+    <a class="brand" href="index.html" aria-label="APEX PERFORMANCE — αρχική">
       APEX<span class="brand__mark">PERFORMANCE</span>
     </a>
 
-    <nav class="nav__links nav__links--desktop" aria-label="Primary">
-      <a class="nav__link" href="index.html">Home</a>
-      <a class="nav__link" href="about.html">About</a>
-      <a class="nav__link" href="services.html">Services</a>
-      <a class="nav__link" href="results.html">Results</a>
-      <a class="nav__link" href="faq.html" aria-current="page">FAQ</a>
-      <a class="nav__link" href="contact.html">Contact</a>
+    <nav class="nav__links nav__links--desktop" aria-label="Κύρια πλοήγηση">
+      <a class="nav__link" href="index.html">Αρχική</a>
+      <a class="nav__link" href="about.html">Ποιος είμαι</a>
+      <a class="nav__link" href="services.html">Υπηρεσίες</a>
+      <a class="nav__link" href="results.html">Αποτελέσματα</a>
+      <a class="nav__link" href="faq.html" aria-current="page">Ερωτήσεις</a>
+      <a class="nav__link" href="contact.html">Επικοινωνία</a>
     </nav>
 
     <a class="btn btn--sm nav__cta" href="apply.html" data-magnetic>
-      Apply <span class="arrow" aria-hidden="true">&#8594;</span>
+      Φόρμα <span class="arrow" aria-hidden="true">&#8594;</span>
     </a>
 
     <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="site-menu">
       <span></span><span></span><span></span>
-      <span class="visually-hidden">Menu</span>
+      <span class="visually-hidden">Μενού</span>
     </button>
   </div>
 </header>
 
 <div class="menu" id="site-menu" aria-hidden="true">
-  <nav aria-label="Mobile">
+  <nav aria-label="Μενού κινητού">
     <ul class="menu__list">
-      <li class="menu__item"><a class="menu__link" href="index.html"><span class="n">01</span> Home</a></li>
-      <li class="menu__item"><a class="menu__link" href="about.html"><span class="n">02</span> About</a></li>
-      <li class="menu__item"><a class="menu__link" href="services.html"><span class="n">03</span> Services</a></li>
-      <li class="menu__item"><a class="menu__link" href="results.html"><span class="n">04</span> Results</a></li>
-      <li class="menu__item"><a class="menu__link" href="faq.html"><span class="n">05</span> FAQ</a></li>
-      <li class="menu__item"><a class="menu__link" href="contact.html"><span class="n">06</span> Contact</a></li>
-      <li class="menu__item"><a class="menu__link" href="apply.html"><span class="n">07</span> Apply</a></li>
+      <li class="menu__item"><a class="menu__link" href="index.html"><span class="n">01</span> Αρχική</a></li>
+      <li class="menu__item"><a class="menu__link" href="about.html"><span class="n">02</span> Ποιος είμαι</a></li>
+      <li class="menu__item"><a class="menu__link" href="services.html"><span class="n">03</span> Υπηρεσίες</a></li>
+      <li class="menu__item"><a class="menu__link" href="results.html"><span class="n">04</span> Αποτελέσματα</a></li>
+      <li class="menu__item"><a class="menu__link" href="faq.html"><span class="n">05</span> Ερωτήσεις</a></li>
+      <li class="menu__item"><a class="menu__link" href="contact.html"><span class="n">06</span> Επικοινωνία</a></li>
+      <li class="menu__item"><a class="menu__link" href="apply.html"><span class="n">07</span> Φόρμα</a></li>
     </ul>
   </nav>
   <div class="menu__foot">
-    <!-- CUSTOMIZE — email + city -->
-    <a href="mailto:[YOUR EMAIL]">[YOUR EMAIL]</a>
-    <span>[CITY], [COUNTRY]</span>
+    <a href="mailto:[EMAIL ΣΟΥ]">[EMAIL ΣΟΥ]</a>
+    <span>[ΠΟΛΗ], Ελλάδα</span>
   </div>
 </div>
 
 <main id="main">
-
 <section class="pagehead">
   <div class="shell">
-    <nav class="crumbs" aria-label="Breadcrumb">
-      <a href="index.html">Home</a><span aria-hidden="true">/</span><span aria-current="page">FAQ</span>
-    </nav>
-    <h1 class="pagehead__title" data-split>Questions I get asked every week.</h1>
-    <p class="pagehead__lede" data-reveal>
-      If yours isn't here, ask it directly &mdash; I answer every enquiry myself.
-    </p>
+    <nav class="crumbs" aria-label="Διαδρομή"><a href="index.html">Αρχική</a><span aria-hidden="true">/</span><span aria-current="page">Ερωτήσεις</span></nav>
+    <h1 class="pagehead__title" data-split>Συχνές ερωτήσεις.</h1>
+    <p class="pagehead__lede" data-reveal>Αν λείπει η δική σου, ρώτησέ με &mdash; απαντώ σε όλα προσωπικά.</p>
   </div>
 </section>
 
-<!-- ====== ACCORDION ======
-     CUSTOMIZE: edit freely, but keep the JSON-LD block in <head> in sync.
-     Each item needs a unique id on the button and the panel. -->
 <section class="section">
   <div class="shell grid">
-    <div class="col-12 md-4">
-      <p class="kicker sticky-top" data-reveal>Eight answers</p>
-    </div>
-
+    <div class="col-12 md-4"><p class="eyebrow sticky-top" data-reveal><span class="eyebrow__n">06</span> Απαντήσεις</p></div>
     <div class="col-12 md-8">
       <div class="faq">
+        <div class="faq__item"><h2><button class="faq__q" type="button" id="q1" aria-expanded="true" aria-controls="a1">Πρέπει να είμαι ήδη σε φόρμα για να ξεκινήσω;<span class="faq__icon" aria-hidden="true"></span></button></h2>
+          <div class="faq__a" id="a1" role="region" aria-labelledby="q1"><div><p>Όχι. Αρκεί να προπονείσαι ή να είσαι έτοιμος να ξεκινήσεις με συνέπεια. Η αξιολόγηση ορίζει το σημείο εκκίνησης, οπότε κανείς δεν ξεκινά από κάπου που δεν αντέχει.</p></div></div></div>
 
-        <div class="faq__item">
-          <h2>
-            <button class="faq__q" type="button" id="q1" aria-expanded="true" aria-controls="a1">
-              Do I need to already be fit to start?
-              <span class="faq__icon" aria-hidden="true"></span>
-            </button>
-          </h2>
-          <div class="faq__a" id="a1" role="region" aria-labelledby="q1"><div>
-            <p>No. You need to be training, or ready to start training, consistently. I coach competing athletes and complete beginners with an athletic goal — the assessment sets the starting point, so nobody starts somewhere they can't handle.</p>
-          </div></div>
-        </div>
+        <div class="faq__item"><h2><button class="faq__q" type="button" id="q2" aria-expanded="false" aria-controls="a2">Πόσες προπονήσεις την εβδομάδα χρειάζονται;<span class="faq__icon" aria-hidden="true"></span></button></h2>
+          <div class="faq__a" id="a2" role="region" aria-labelledby="q2"><div><p>Συνήθως τρεις με τέσσερις, μαζί με το άθλημά σου. Προτιμώ τρεις που θα κάνεις κάθε εβδομάδα από πέντε που θα παρατήσεις σε έναν μήνα. Η συχνότητα ορίζεται στην αξιολόγηση, γύρω από το πραγματικό σου πρόγραμμα.</p></div></div></div>
 
-        <div class="faq__item">
-          <h2>
-            <button class="faq__q" type="button" id="q2" aria-expanded="false" aria-controls="a2">
-              How many sessions a week will I need to do?
-              <span class="faq__icon" aria-hidden="true"></span>
-            </button>
-          </h2>
-          <div class="faq__a" id="a2" role="region" aria-labelledby="q2"><div>
-            <p>Usually three to four, including your sport. I'd rather build three sessions you complete every week than five you abandon in a month. Frequency is set during the assessment, around your actual schedule — not an ideal one.</p>
-          </div></div>
-        </div>
+        <div class="faq__item"><h2><button class="faq__q" type="button" id="q3" aria-expanded="false" aria-controls="a3">Το online coaching είναι το ίδιο καλό;<span class="faq__icon" aria-hidden="true"></span></button></h2>
+          <div class="faq__a" id="a3" role="region" aria-labelledby="q3"><div><p>Για τους περισσότερους αθλητές ναι, εφόσον βιντεοσκοπείς τις βασικές άρσεις. Χάνεις τη διόρθωση από κοντά &mdash; κρατάς τον προγραμματισμό, τον έλεγχο βίντεο και τις μετρήσεις. Όποιος χρειάζεται τεχνική από το μηδέν τα πάει καλύτερα δια ζώσης, τουλάχιστον στον πρώτο κύκλο.</p></div></div></div>
 
-        <div class="faq__item">
-          <h2>
-            <button class="faq__q" type="button" id="q3" aria-expanded="false" aria-controls="a3">
-              Is online coaching really as good as in person?
-              <span class="faq__icon" aria-hidden="true"></span>
-            </button>
-          </h2>
-          <div class="faq__a" id="a3" role="region" aria-labelledby="q3"><div>
-            <p>For most athletes, yes — provided you film your main lifts. You lose the hands-on cueing; you keep the programming, the video review and the testing. Athletes who need technique rebuilt from scratch do better in person, at least for the first block. I'll tell you honestly which camp you're in.</p>
-          </div></div>
-        </div>
+        <div class="faq__item"><h2><button class="faq__q" type="button" id="q4" aria-expanded="false" aria-controls="a4">Πόσο κοστίζει;<span class="faq__icon" aria-hidden="true"></span></button></h2>
+          <div class="faq__a" id="a4" role="region" aria-labelledby="q4"><div><p>Το «μόνο πρόγραμμα» είναι εφάπαξ· το online και η ατομική προπόνηση χρεώνονται μηνιαίως. Οι αφετηρίες είναι στη σελίδα <a class="link" href="services.html">Υπηρεσίες</a> και σου δίνω ακριβή προσφορά αφού μάθω για τι προπονείσαι.</p></div></div></div>
 
-        <div class="faq__item">
-          <h2>
-            <button class="faq__q" type="button" id="q4" aria-expanded="false" aria-controls="a4">
-              What equipment do I need for online coaching?
-              <span class="faq__icon" aria-hidden="true"></span>
-            </button>
-          </h2>
-          <div class="faq__a" id="a4" role="region" aria-labelledby="q4"><div>
-            <p>A barbell, plates, a rack and somewhere to run covers almost everything. If you're missing something, I build the block around what you actually have — tell me at the intake stage rather than buying kit first.</p>
-          </div></div>
-        </div>
+        <div class="faq__item"><h2><button class="faq__q" type="button" id="q5" aria-expanded="false" aria-controls="a5">Δεσμεύομαι με συμβόλαιο;<span class="faq__icon" aria-hidden="true"></span></button></h2>
+          <div class="faq__a" id="a5" role="region" aria-labelledby="q5"><div><p>Όχι. Η χρέωση είναι μηνιαία με 30 ημέρες προειδοποίηση για διακοπή. Ζητώ κατ' ελάχιστον έναν πλήρη κύκλο, περίπου δώδεκα εβδομάδες, γιατί οτιδήποτε μικρότερο δεν μετριέται ουσιαστικά &mdash; και η μέτρηση είναι όλο το νόημα.</p></div></div></div>
 
-        <div class="faq__item">
-          <h2>
-            <button class="faq__q" type="button" id="q5" aria-expanded="false" aria-controls="a5">
-              How much does it cost?
-              <span class="faq__icon" aria-hidden="true"></span>
-            </button>
-          </h2>
-          <div class="faq__a" id="a5" role="region" aria-labelledby="q5"><div>
-            <p>Programming-only is a one-off fee; online and 1:1 coaching are monthly. Exact pricing depends on session frequency and block length — starting points are on the <a class="link" href="services.html">Services page</a>, and I quote you properly once I know what you're training for.</p>
-          </div></div>
-        </div>
-
-        <div class="faq__item">
-          <h2>
-            <button class="faq__q" type="button" id="q6" aria-expanded="false" aria-controls="a6">
-              Am I locked into a contract?
-              <span class="faq__icon" aria-hidden="true"></span>
-            </button>
-          </h2>
-          <div class="faq__a" id="a6" role="region" aria-labelledby="q6"><div>
-            <p>No rolling contract you can't leave. Coaching is billed monthly with 30 days' notice to stop. I do ask for a minimum of one full block — around twelve weeks — because anything shorter can't be meaningfully tested, and testing is the whole point.</p>
-          </div></div>
-        </div>
-
-        <div class="faq__item">
-          <h2>
-            <button class="faq__q" type="button" id="q7" aria-expanded="false" aria-controls="a7">
-              I'm carrying an injury. Can you still coach me?
-              <span class="faq__icon" aria-hidden="true"></span>
-            </button>
-          </h2>
-          <div class="faq__a" id="a7" role="region" aria-labelledby="q7"><div>
-            <p>Often, yes — but I'm a coach, not a clinician. If you're under the care of a physiotherapist or doctor, I work alongside them and follow their restrictions. If you haven't been assessed and something is painful, get that done first. I'll happily point you to someone.</p>
-          </div></div>
-        </div>
-
-        <div class="faq__item">
-          <h2>
-            <button class="faq__q" type="button" id="q8" aria-expanded="false" aria-controls="a8">
-              How soon will I see results?
-              <span class="faq__icon" aria-hidden="true"></span>
-            </button>
-          </h2>
-          <div class="faq__a" id="a8" role="region" aria-labelledby="q8"><div>
-            <p>Strength markers usually move within four to six weeks. Speed and jump numbers take longer, which is why the first formal retest sits at eight to twelve weeks. Anyone promising a transformation faster than that is selling you something.</p>
-          </div></div>
-        </div>
-
+        <div class="faq__item"><h2><button class="faq__q" type="button" id="q6" aria-expanded="false" aria-controls="a6">Έχω τραυματισμό. Μπορείς να με προπονήσεις;<span class="faq__icon" aria-hidden="true"></span></button></h2>
+          <div class="faq__a" id="a6" role="region" aria-labelledby="q6"><div><p>Συχνά ναι &mdash; αλλά είμαι προπονητής, όχι κλινικός. Αν σε παρακολουθεί φυσικοθεραπευτής ή ιατρός, δουλεύω μαζί τους και ακολουθώ τους περιορισμούς τους. Αν κάτι πονάει και δεν έχει ελεγχθεί, κάνε πρώτα αυτό.</p></div></div></div>
       </div>
     </div>
   </div>
 </section>
-
 </main>
-<!-- ====== CTA BAND ====== -->
 <section class="cta">
   <div class="shell">
-    <p class="kicker" data-reveal>Next step</p>
-    <h2 class="cta__title mt-3" data-split>Tell me what you're training for.</h2>
+    <p class="kicker" data-reveal>Επόμενο βήμα</p>
+    <h2 class="cta__title mt-3" data-split>Πες μου για τι προπονείσαι.</h2>
     <p class="cta__sub" data-reveal>
-      No pressure, no sales call script. Send me your sport, your timeline and what's
-      not moving right now — I'll reply with an honest read on whether I can help.
+      Συμπλήρωσε τη φόρμα σε δύο λεπτά. Θα σου απαντήσω προσωπικά, με ειλικρινή άποψη
+      για το αν μπορώ να βοηθήσω.
     </p>
     <div class="btn-row mt-4" data-reveal>
-      <a class="btn" href="apply.html" data-magnetic>Start your application <span class="arrow" aria-hidden="true">&#8594;</span></a>
-      <a class="btn btn--ghost" href="services.html">See the programs</a>
+      <a class="btn" href="apply.html" data-magnetic>Συμπλήρωσε τη φόρμα <span class="arrow" aria-hidden="true">&#8594;</span></a>
+      <a class="btn btn--ghost" href="services.html">Δες τα προγράμματα</a>
     </div>
   </div>
 </section>
-<!-- ====== FOOTER ====== -->
 <footer class="footer">
   <div class="shell">
     <div class="footer__top">
       <div>
         <a class="brand" href="index.html">APEX<span class="brand__mark">PERFORMANCE</span></a>
-        <!-- CUSTOMIZE — your tagline -->
-        <p class="footer__tag">Athletic performance coaching for people who want the number to move. Built on testing, not guesswork.</p>
+        <!-- ΠΡΟΣΑΡΜΟΓΗ — το σλόγκαν σου -->
+        <p class="footer__tag">Προπόνηση αθλητικής απόδοσης για όσους θέλουν τα νούμερα να κινηθούν. Με μετρήσεις, όχι εικασίες.</p>
       </div>
 
       <div>
-        <h2 class="footer__h">Site</h2>
+        <h2 class="footer__h">Σελίδες</h2>
         <ul class="footer__list">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="services.html">Services</a></li>
-          <li><a href="results.html">Results</a></li>
-          <li><a href="faq.html">FAQ</a></li>
-          <li><a href="apply.html">Apply</a></li>
+          <li><a href="index.html">Αρχική</a></li>
+          <li><a href="about.html">Ποιος είμαι</a></li>
+          <li><a href="services.html">Υπηρεσίες</a></li>
+          <li><a href="results.html">Αποτελέσματα</a></li>
+          <li><a href="faq.html">Ερωτήσεις</a></li>
+          <li><a href="apply.html">Φόρμα</a></li>
         </ul>
       </div>
 
       <div>
-        <h2 class="footer__h">Contact</h2>
+        <h2 class="footer__h">Επικοινωνία</h2>
         <ul class="footer__list">
-          <!-- CUSTOMIZE — email, phone, service area -->
-          <li><a href="mailto:[YOUR EMAIL]">[YOUR EMAIL]</a></li>
-          <li><a href="tel:[YOUR PHONE E164]">[YOUR PHONE]</a></li>
-          <li>[CITY], [COUNTRY]</li>
-          <li>Online &mdash; worldwide</li>
+          <!-- ΠΡΟΣΑΡΜΟΓΗ — email, τηλέφωνο, περιοχή -->
+          <li><a href="mailto:[EMAIL ΣΟΥ]">[EMAIL ΣΟΥ]</a></li>
+          <li><a href="tel:[ΤΗΛΕΦΩΝΟ E164]">[ΤΗΛΕΦΩΝΟ]</a></li>
+          <li>[ΠΟΛΗ], Ελλάδα</li>
+          <li>Online &mdash; παντού</li>
         </ul>
       </div>
 
       <div>
-        <h2 class="footer__h">Follow</h2>
-        <ul class="footer__list social" style="flex-direction:column;gap:.7rem">
-          <!-- CUSTOMIZE — replace the # with your real profile URLs -->
+        <h2 class="footer__h">Social</h2>
+        <ul class="footer__list">
+          <!-- ΠΡΟΣΑΡΜΟΓΗ — τα πραγματικά σου προφίλ -->
           <li><a href="[INSTAGRAM URL]" rel="me noopener">Instagram</a></li>
           <li><a href="[YOUTUBE URL]" rel="me noopener">YouTube</a></li>
           <li><a href="[TIKTOK URL]" rel="me noopener">TikTok</a></li>
-          <li><a href="[STRAVA OR OTHER URL]" rel="me noopener">Strava</a></li>
         </ul>
       </div>
     </div>
 
     <div class="footer__bottom">
-      <span>&copy; <span data-year>2026</span> APEX PERFORMANCE. All rights reserved.</span>
+      <span>&copy; <span data-year>2026</span> APEX PERFORMANCE. Με επιφύλαξη παντός δικαιώματος.</span>
       <span>
-        <a href="privacy.html">Privacy Policy</a> &nbsp;&middot;&nbsp;
-        <a href="terms.html">Terms</a>
+        <a href="privacy.html">Απόρρητο</a> &nbsp;&middot;&nbsp;
+        <a href="terms.html">Όροι</a>
       </span>
-      <span>[CITY], [COUNTRY]</span>
+      <span>[ΠΟΛΗ], Ελλάδα</span>
     </div>
   </div>
 </footer>

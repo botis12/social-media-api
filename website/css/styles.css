@@ -26,9 +26,9 @@
 
   /* CUSTOMIZE — Typography. Swap the font families here and in the
      <link> tag inside each .html <head>. */
-  --font-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Noto Sans Display", "Helvetica Neue", Arial, sans-serif;
   --font-body:    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-mono:    "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --font-mono:    "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
 
   /* Fluid type scale (clamp: min / preferred / max) */
   --t-mega:  clamp(3.25rem, 11.5vw, 11rem);
@@ -163,7 +163,7 @@ h1, h2, h3 {
   font-weight: 800;
   line-height: .92;
   letter-spacing: -0.035em;
-  font-variation-settings: "wdth" 112;
+  font-variation-settings: "wdth" 96;
   text-transform: uppercase;
 }
 
@@ -298,6 +298,28 @@ h1, h2, h3 {
   gap: 2rem;
   width: 100%;
 }
+/* Every page opens with a dark hero or pagehead, and the fixed bar sits
+   on top of it. Until the bar gets its own background on scroll it must
+   be paper-coloured, or the ink wordmark disappears into the black. */
+.nav { color: var(--paper); }
+.nav .brand { color: var(--paper); }
+.nav .brand__mark { color: color-mix(in srgb, var(--paper) 58%, transparent); }
+.nav .nav__link { color: color-mix(in srgb, var(--paper) 64%, transparent); }
+.nav .nav__link:hover,
+.nav .nav__link[aria-current="page"] { color: var(--paper); }
+.nav .nav__toggle span { background: var(--paper); }
+.nav .btn { --btn-fg: var(--ink); --btn-bg: var(--paper); }
+
+/* Once it has a paper backdrop, flip everything back to ink. */
+.nav.is-stuck { color: var(--ink); }
+.nav.is-stuck .brand { color: var(--ink); }
+.nav.is-stuck .brand__mark { color: var(--grey); }
+.nav.is-stuck .nav__link { color: var(--grey); }
+.nav.is-stuck .nav__link:hover,
+.nav.is-stuck .nav__link[aria-current="page"] { color: var(--ink); }
+.nav.is-stuck .nav__toggle span { background: var(--ink); }
+.nav.is-stuck .btn { --btn-fg: var(--paper); --btn-bg: var(--ink); }
+
 .nav.is-stuck {
   background: color-mix(in srgb, var(--paper) 82%, transparent);
   backdrop-filter: saturate(150%) blur(14px);
@@ -315,7 +337,7 @@ h1, h2, h3 {
   font-weight: 900;
   font-size: 1.0625rem;
   letter-spacing: -0.02em;
-  font-variation-settings: "wdth" 120;
+  font-variation-settings: "wdth" 100;
   text-transform: uppercase;
   white-space: nowrap;
 }
@@ -411,7 +433,7 @@ h1, h2, h3 {
   font-size: clamp(2.25rem, 12vw, 4.5rem);
   line-height: 1;
   letter-spacing: -0.04em;
-  font-variation-settings: "wdth" 110;
+  font-variation-settings: "wdth" 95;
   text-transform: uppercase;
   transform: translateY(105%);
   transition: transform .62s var(--ease-out), opacity var(--dur-fast) linear;
@@ -488,12 +510,12 @@ body.menu-open .progress { opacity: 0; }
 .hero__inner { position: relative; z-index: 1; width: 100%; }
 .hero__title {
   font-size: var(--t-mega);
-  font-variation-settings: "wdth" 118;
+  font-variation-settings: "wdth" 100;
   letter-spacing: -0.045em;
 }
 .hero__title .thin {
   font-weight: 400;
-  font-variation-settings: "wdth" 88;
+  font-variation-settings: "wdth" 76;
   opacity: .78;
 }
 .hero__body {
@@ -600,7 +622,7 @@ body.menu-open .progress { opacity: 0; }
   font-weight: 700;
   font-size: clamp(1rem, 2vw, 1.6rem);
   letter-spacing: -0.01em;
-  font-variation-settings: "wdth" 96;
+  font-variation-settings: "wdth" 83;
   text-transform: uppercase;
 }
 .marquee__item::after {
@@ -630,7 +652,7 @@ body.menu-open .progress { opacity: 0; }
   font-size: clamp(2.5rem, 5.5vw, 4.25rem);
   line-height: .9;
   letter-spacing: -0.045em;
-  font-variation-settings: "wdth" 108;
+  font-variation-settings: "wdth" 93;
   font-variant-numeric: tabular-nums;
 }
 .stat__num .unit { font-size: .45em; vertical-align: super; opacity: .55; margin-left: .1em; }
@@ -802,7 +824,7 @@ body.menu-open .progress { opacity: 0; }
   line-height: 1.05;
   letter-spacing: -0.035em;
   text-transform: none;
-  font-variation-settings: "wdth" 100;
+  font-variation-settings: "wdth" 86;
   max-width: 20ch;
 }
 
@@ -1004,7 +1026,7 @@ body.menu-open .progress { opacity: 0; }
 }
 .cta__title {
   font-size: var(--t-xxl);
-  font-variation-settings: "wdth" 116;
+  font-variation-settings: "wdth" 100;
   max-width: 16ch;
 }
 .cta__sub {
@@ -1399,7 +1421,7 @@ body.menu-open .progress { opacity: 0; }
 }
 
 /* ============================================================
-   27. CLIENT INTAKE WIZARD  (apply.html)
+   27. ΦΟΡΜΑ ΕΠΙΚΟΙΝΩΝΙΑΣ  (apply.html)
    ============================================================ */
 
 /* Reassurance rail beside the form — what I ask for, why, and how
@@ -1428,83 +1450,14 @@ body.menu-open .progress { opacity: 0; }
   line-height: 1.55;
   color: var(--muted);
 }
-.wizard { max-width: 100%; }
 
-.wizard__bar {
-  display: flex;
-  gap: .4rem;
-  margin-bottom: 1.1rem;
-}
-.wizard__seg {
-  flex: 1;
-  height: 3px;
-  background: var(--line);
-  border-radius: 999px;
-  overflow: hidden;
-}
-.wizard__seg span {
-  display: block;
-  height: 100%;
-  background: var(--fg);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform .5s var(--ease);
-}
 .wizard__seg.is-done span, .wizard__seg.is-now span { transform: scaleX(1); }
 
-.wizard__meta {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-bottom: clamp(1.75rem, 3.5vw, 2.75rem);
-  font: 500 var(--t-xs)/1 var(--font-mono);
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  color: var(--muted-soft);
-}
-.wizard__meta strong { color: var(--fg); font-weight: 500; }
 
-.wizard__step { display: none; }
-.wizard__step.is-active { display: block; animation: stepIn .5s var(--ease-out) both; }
-@keyframes stepIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes stepIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } } to { opacity: 1; transform: none; } }
 
-.wizard__legend {
-  padding: 0;
-  border: 0;
-  margin-bottom: 1.9rem;
-}
-.wizard__legend h2 {
-  font-size: clamp(1.6rem, 3.2vw, 2.4rem);
-  line-height: 1.02;
-}
-.wizard__legend p {
-  margin-top: .85rem;
-  max-width: 52ch;
-  color: var(--muted);
-  font-size: var(--t-base);
-  line-height: 1.6;
-}
-.wizard fieldset { border: 0; padding: 0; margin: 0; }
 
-.wizard__nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-top: clamp(2rem, 4vw, 3rem);
-  padding-top: 1.75rem;
-  border-top: 1px solid var(--line);
-}
-.wizard__back {
-  font: 500 var(--t-xs)/1 var(--font-mono);
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  color: var(--muted);
-  padding: .8rem 0;
-  transition: color var(--dur-fast) var(--ease);
-}
 .wizard__back:hover { color: var(--fg); }
-.wizard__back[hidden] { display: none; }
 
 /* Selectable option cards — big targets, obvious state, no custom
    controls: a real radio/checkbox sits underneath for a11y. */
@@ -1589,22 +1542,6 @@ body.menu-open .progress { opacity: 0; }
 }
 
 /* Review step */
-.review { border-top: 1px solid var(--line); }
-.review__row {
-  display: grid;
-  gap: .3rem 1.5rem;
-  padding-block: 1rem;
-  border-bottom: 1px solid var(--line);
-}
-@media (min-width: 620px) { .review__row { grid-template-columns: 15rem minmax(0, 1fr); } }
-.review__k {
-  font: 400 var(--t-xs)/1.5 var(--font-mono);
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: var(--muted-soft);
-}
-.review__v { font-size: var(--t-base); line-height: 1.5; overflow-wrap: anywhere; }
-.review__v:empty::after { content: "—"; color: var(--muted-soft); }
 
 .consent {
   display: flex;
@@ -1664,7 +1601,7 @@ body.menu-open .progress { opacity: 0; }
     transition-duration: .001ms !important;
   }
   [data-reveal] { opacity: 1; transform: none; }
-  .wizard__step.is-active, .done.is-on { animation: none; }
+  .done.is-on { animation: none; }
   .ln > span { transform: none; }
   .grain { animation: none; }
   .marquee__track { animation: none; }

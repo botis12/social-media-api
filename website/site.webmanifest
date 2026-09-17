@@ -1,12 +1,11 @@
 {
   "name": "APEX PERFORMANCE",
   "short_name": "APEX",
-  "description": "Athletic performance coaching in [CITY] and online.",
+  "description": "Προπόνηση αθλητικής απόδοσης στην [ΠΟΛΗ] και online.",
+  "lang": "el",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0B0B0B",
   "theme_color": "#0B0B0B",
-  "icons": [
-    { "src": "/images/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
-  ]
+  "icons": [{ "src": "/images/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
 }

@@ -365,133 +365,27 @@
     });
   })();
 
-  /* ---------- 11. CONTACT FORM ----------
-     Validates inline, then posts via fetch so the visitor never
-     leaves the page. Works with Formspree, Basin, Netlify Forms,
-     Getform — anything that accepts a POST and returns 2xx. */
-  (function form() {
-    var form = $('#enquiry-form');
-    if (!form) return;
-
-    var status = $('#form-status');
-    var submit = $('#form-submit');
-    var fields = $$('[data-validate]', form);
-
-    var rules = {
-      name:    function (v) { return v.trim().length >= 2 || 'Please enter your name.'; },
-      email:   function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()) || 'Please enter a valid email address.'; },
-      message: function (v) { return v.trim().length >= 10 || 'Tell me a little more — 10 characters minimum.'; }
-    };
-
-    function validate(field) {
-      var rule = rules[field.name];
-      var slot = $('#' + field.id + '-error');
-      if (!rule) return true;
-      var res = rule(field.value);
-      var ok = res === true;
-      field.setAttribute('aria-invalid', String(!ok));
-      if (slot) slot.textContent = ok ? '' : res;
-      return ok;
-    }
-
-    fields.forEach(function (f) {
-      f.addEventListener('blur', function () { validate(f); });
-      f.addEventListener('input', function () {
-        if (f.getAttribute('aria-invalid') === 'true') validate(f);
-      });
-    });
-
-    function say(msg, state) {
-      if (!status) return;
-      status.hidden = false;
-      status.dataset.state = state;
-      status.textContent = msg;
-    }
-
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-
-      // Honeypot — bots fill hidden fields, humans don't.
-      var trap = form.querySelector('[name="_gotcha"]');
-      if (trap && trap.value) return;
-
-      var valid = true;
-      fields.forEach(function (f) { if (!validate(f)) valid = false; });
-      if (!valid) {
-        say('Please fix the highlighted fields and try again.', 'err');
-        var bad = form.querySelector('[aria-invalid="true"]');
-        bad && bad.focus();
-        return;
-      }
-
-      var action = form.getAttribute('action') || '';
-      // CUSTOMIZE — until you paste a real endpoint into the form's
-      // action attribute, this shows a demo confirmation instead of posting.
-      if (!action || action.indexOf('REPLACE_WITH') !== -1) {
-        say('Demo mode: your form endpoint has not been connected yet. See README.md → "Connecting the form".', 'err');
-        return;
-      }
-
-      submit.disabled = true;
-      var label = submit.textContent;
-      submit.textContent = 'Sending…';
-      say('Sending your message…', 'ok');
-
-      fetch(action, {
-        method: 'POST',
-        body: new FormData(form),
-        headers: { Accept: 'application/json' }
-      })
-        .then(function (r) {
-          if (!r.ok) throw new Error('Request failed: ' + r.status);
-          form.reset();
-          fields.forEach(function (f) { f.setAttribute('aria-invalid', 'false'); });
-          $$('.field__error', form).forEach(function (s) { s.textContent = ''; });
-          say('Thanks — your message is in. I reply to every enquiry personally, usually within one working day.', 'ok');
-        })
-        .catch(function () {
-          say('Something went wrong sending that. Email me directly at [YOUR EMAIL] and I will pick it up.', 'err');
-        })
-        .then(function () {
-          submit.disabled = false;
-          submit.textContent = label;
-        });
-    });
-  })();
-
-
-  /* ---------- 13. CLIENT APPLICATION WIZARD (apply.html) ----------
-     Multi-step form with per-step validation, progress, localStorage
-     autosave and a review step. Degrades to one long form without JS
-     (see the <noscript> block in apply.html). */
-  (function wizard() {
+  /* ---------- 11. APPLICATION FORM (apply.html) ----------
+     One short page. Inline validation, localStorage autosave so a
+     half-filled form survives a closed tab, and a fetch submit that
+     swaps in a confirmation panel instead of reloading the page. */
+  (function applyForm() {
     var form = $('#apply-form');
     if (!form) return;
 
-    var steps   = $$('.wizard__step', form);
-    var segs    = $$('.wizard__seg', form);
-    var nextBtn = $('#wizard-next');
-    var backBtn = $('#wizard-back');
-    var sendBtn = $('#wizard-submit');
-    var nowEl   = $('#step-now');
-    var nameEl  = $('#step-name');
-    var announce= $('#step-announce');
-    var reviewOut = $('#review-out');
+    var submitBtn = $('#apply-submit');
     var statusEl  = $('#apply-status');
     var savedNote = $('#saved-note');
     var donePanel = $('#apply-done');
-    var KEY = 'apex-application-v1';
-    var i = 0;
+    var KEY = 'apex-apply-el-v1';
 
-    /* --- validation --- */
     var checks = {
-      required: function (v) { return v.trim().length > 0 || 'This one is required.'; },
-      email:    function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()) || 'Please enter a valid email address.'; },
-      min20:    function (v) { return v.trim().length >= 20 || 'A little more detail helps — 20 characters minimum.'; },
-      checked:  function (v, el) { return el.checked || 'Please confirm this to continue.'; }
+      required: function (v) { return v.trim().length > 0 || 'Το πεδίο είναι υποχρεωτικό.'; },
+      email:    function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()) || 'Συμπλήρωσε έγκυρο email.'; },
+      checked:  function (v, el) { return el.checked || 'Χρειάζεται η συγκατάθεσή σου για να συνεχίσουμε.'; }
     };
 
-    function errorSlot(id) { return document.getElementById(id + '-error'); }
+    function slot(id) { return document.getElementById(id + '-error'); }
 
     function validateField(el) {
       var rule = checks[el.dataset.validate];
@@ -499,128 +393,34 @@
       var res = rule(el.value, el);
       var ok = res === true;
       el.setAttribute('aria-invalid', String(!ok));
-      var slot = errorSlot(el.id);
-      if (slot) slot.textContent = ok ? '' : res;
+      var s = slot(el.id);
+      if (s) s.textContent = ok ? '' : res;
       return ok;
     }
 
-    // Radio groups marked data-required-group need one selection.
-    function validateGroups(scope) {
+    function validateGroups() {
       var ok = true;
-      $$('[data-required-group]', scope).forEach(function (g) {
+      $$('[data-required-group]', form).forEach(function (g) {
         var name = g.getAttribute('data-required-group');
         var picked = form.querySelector('input[name="' + name + '"]:checked');
-        var slot = errorSlot(name);
-        if (slot) slot.textContent = picked ? '' : 'Please choose one to continue.';
+        var s = slot(name);
+        if (s) s.textContent = picked ? '' : 'Διάλεξε μία επιλογή.';
         if (!picked) ok = false;
       });
       return ok;
     }
 
-    function validateStep(idx) {
-      var scope = steps[idx];
-      var ok = true;
-      $$('[data-validate]', scope).forEach(function (el) { if (!validateField(el)) ok = false; });
-      if (!validateGroups(scope)) ok = false;
-      if (!ok) {
-        var bad = scope.querySelector('[aria-invalid="true"]') ||
-                  scope.querySelector('[data-required-group]');
-        if (bad) {
-          (bad.focus ? bad : bad.querySelector('input')).focus({ preventScroll: true });
-          bad.scrollIntoView({ block: 'center', behavior: reduced ? 'auto' : 'smooth' });
-        }
-      }
-      return ok;
-    }
-
-    // Re-validate as the visitor fixes things, never before they've tried.
     $$('[data-validate]', form).forEach(function (el) {
-      el.addEventListener('blur', function () { if (el.value.trim()) validateField(el); });
-      el.addEventListener('input', function () {
-        if (el.getAttribute('aria-invalid') === 'true') validateField(el);
-      });
+      el.addEventListener('blur',   function () { if (el.value.trim() || el.type === 'checkbox') validateField(el); });
+      el.addEventListener('input',  function () { if (el.getAttribute('aria-invalid') === 'true') validateField(el); });
+      el.addEventListener('change', function () { if (el.type === 'checkbox') validateField(el); });
     });
     $$('[data-required-group] input', form).forEach(function (el) {
-      el.addEventListener('change', function () {
-        var slot = errorSlot(el.name);
-        if (slot) slot.textContent = '';
-      });
+      el.addEventListener('change', function () { var s = slot(el.name); if (s) s.textContent = ''; });
     });
 
-    /* --- step navigation --- */
-    function show(idx, initial) {
-      i = Math.max(0, Math.min(idx, steps.length - 1));
-      steps.forEach(function (s, n) {
-        s.classList.toggle('is-active', n === i);
-        s.setAttribute('aria-hidden', String(n !== i));
-      });
-      segs.forEach(function (s, n) {
-        s.classList.toggle('is-done', n < i);
-        s.classList.toggle('is-now', n === i);
-      });
-
-      var last = i === steps.length - 1;
-      backBtn.hidden = i === 0;
-      nextBtn.style.display = last ? 'none' : '';
-      sendBtn.style.display = last ? '' : 'none';
-
-      if (nowEl)  nowEl.textContent = i + 1;
-      if (nameEl) nameEl.textContent = steps[i].dataset.name;
-      if (announce) announce.textContent = 'Step ' + (i + 1) + ' of ' + steps.length + ': ' + steps[i].dataset.name;
-
-      if (last) buildReview();
-
-      // On first paint, leave the page where it is — the visitor has not
-      // interacted yet, so stealing focus and scroll is hostile.
-      if (initial) return;
-
-      // Moving between steps, take focus to the new heading so screen
-      // readers announce it and keyboard order restarts in the right place.
-      var h = steps[i].querySelector('h2');
-      if (h) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); }
-
-      var top = form.getBoundingClientRect().top + window.scrollY - 110;
-      window.scrollTo({ top: top, behavior: reduced ? 'auto' : 'smooth' });
-    }
-
-    nextBtn.addEventListener('click', function () { if (validateStep(i)) { save(); show(i + 1); } });
-    backBtn.addEventListener('click', function () { show(i - 1); });
-
-    // Enter advances rather than submitting early (except in a textarea).
-    form.addEventListener('keydown', function (e) {
-      if (e.key !== 'Enter' || e.target.tagName === 'TEXTAREA') return;
-      if (i < steps.length - 1) { e.preventDefault(); nextBtn.click(); }
-    });
-
-    /* --- review step --- */
-    function buildReview() {
-      if (!reviewOut) return;
-      var data = new FormData(form);
-      var seen = {};
-      var html = '';
-      data.forEach(function (v, k) {
-        if (k.charAt(0) === '_' || k === 'Consent') return;
-        if (seen[k] !== undefined) { seen[k] += ', ' + v; return; }
-        seen[k] = v;
-      });
-      Object.keys(seen).forEach(function (k) {
-        var v = String(seen[k]).trim();
-        if (!v) return;
-        html += '<div class="review__row"><dt class="review__k">' + esc(k) + '</dt>' +
-                '<dd class="review__v">' + esc(v) + '</dd></div>';
-      });
-      reviewOut.innerHTML = html
-        ? '<dl style="margin:0">' + html + '</dl>'
-        : '<p class="review__v" style="padding:1rem 0">Nothing filled in yet — step back and add your details.</p>';
-    }
-
-    function esc(t) {
-      return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;')
-                      .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    }
-
-    /* --- autosave, so a long form survives a closed tab --- */
-    var saveTimer;
+    /* --- autosave --- */
+    var timer;
     function save() {
       try {
         var out = {};
@@ -633,10 +433,10 @@
         localStorage.setItem(KEY, JSON.stringify(out));
         if (savedNote) {
           savedNote.classList.add('is-on');
-          clearTimeout(saveTimer);
-          saveTimer = setTimeout(function () { savedNote.classList.remove('is-on'); }, 1800);
+          clearTimeout(timer);
+          timer = setTimeout(function () { savedNote.classList.remove('is-on'); }, 1600);
         }
-      } catch (e) { /* private mode or blocked storage — carry on regardless */ }
+      } catch (e) { /* private mode or blocked storage — not fatal */ }
     }
 
     function restore() {
@@ -645,11 +445,10 @@
       if (!raw) return;
       var data;
       try { data = JSON.parse(raw); } catch (e) { return; }
-
       Object.keys(data).forEach(function (k) {
         var vals = [].concat(data[k]);
-        var els = $$('[name="' + (window.CSS && CSS.escape ? CSS.escape(k) : k) + '"]', form);
-        els.forEach(function (el) {
+        $$('[name]', form).forEach(function (el) {
+          if (el.name !== k) return;
           if (el.type === 'checkbox' || el.type === 'radio') {
             if (vals.indexOf(el.value) !== -1) el.checked = true;
           } else if (vals[0] !== undefined) {
@@ -659,10 +458,9 @@
       });
     }
 
-    form.addEventListener('input',  function () { clearTimeout(saveTimer); saveTimer = setTimeout(save, 600); });
+    form.addEventListener('input',  function () { clearTimeout(timer); timer = setTimeout(save, 600); });
     form.addEventListener('change', save);
 
-    /* --- submit --- */
     function say(msg, state) {
       if (!statusEl) return;
       statusEl.hidden = false;
@@ -676,25 +474,27 @@
       var trap = form.querySelector('[name="_gotcha"]');
       if (trap && trap.value) return;
 
-      // Re-check every step, not just this one — someone may have gone back.
-      for (var n = 0; n < steps.length; n++) {
-        if (!validateStep(n)) {
-          show(n);
-          say('Something on step ' + (n + 1) + ' still needs attention.', 'err');
-          return;
-        }
+      var ok = true;
+      $$('[data-validate]', form).forEach(function (el) { if (!validateField(el)) ok = false; });
+      if (!validateGroups()) ok = false;
+
+      if (!ok) {
+        say('Έλεγξε τα πεδία που επισημαίνονται και δοκίμασε ξανά.', 'err');
+        var bad = form.querySelector('[aria-invalid="true"]');
+        if (bad) { bad.focus(); bad.scrollIntoView({ block: 'center', behavior: reduced ? 'auto' : 'smooth' }); }
+        return;
       }
 
       var action = form.getAttribute('action') || '';
       if (!action || action.indexOf('REPLACE_WITH') !== -1) {
-        say('Demo mode: no form endpoint is connected yet. See README.md → "Connecting the form". Your answers are saved in this browser.', 'err');
+        say('Demo mode: δεν έχει συνδεθεί endpoint ακόμη. Δες το README.md → «Σύνδεση της φόρμας». Οι απαντήσεις σου είναι αποθηκευμένες σε αυτόν τον browser.', 'err');
         return;
       }
 
-      sendBtn.disabled = true;
-      var label = sendBtn.textContent;
-      sendBtn.textContent = 'Sending…';
-      say('Sending your application…', 'ok');
+      submitBtn.disabled = true;
+      var label = submitBtn.textContent;
+      submitBtn.textContent = 'Αποστολή…';
+      say('Γίνεται αποστολή…', 'ok');
 
       fetch(action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
         .then(function (r) {
@@ -709,14 +509,13 @@
           }
         })
         .catch(function () {
-          say('That did not send. Your answers are still saved here — try again, or email me at [YOUR EMAIL].', 'err');
-          sendBtn.disabled = false;
-          sendBtn.textContent = label;
+          say('Κάτι πήγε στραβά. Οι απαντήσεις σου είναι αποθηκευμένες — δοκίμασε ξανά ή στείλε email στο [EMAIL ΣΟΥ].', 'err');
+          submitBtn.disabled = false;
+          submitBtn.textContent = label;
         });
     });
 
     restore();
-    show(0, true);
   })();
 
   /* ---------- 12. CURRENT YEAR ---------- */

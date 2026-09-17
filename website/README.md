@@ -1,5 +1,7 @@
 # APEX PERFORMANCE — personal trainer website
 
+**Γλώσσα: Ελληνικά** (`<html lang="el">`, `og:locale: el_GR`).
+
 Static, dependency-free site for an athletic-performance coaching business.
 Plain HTML, CSS and vanilla JS — no build step, no framework, no npm install.
 Drop the folder on any host and it works.
@@ -11,8 +13,8 @@ website/
 ├── services.html      4 programs + pricing
 ├── results.html       Stats, before/after slider, testimonials
 ├── faq.html           8-question accordion (+ FAQ schema)
-├── contact.html       Short enquiry form, direct details, booking link
-├── apply.html         6-step client application (the main conversion path)
+├── contact.html       Contact details + booking link (no duplicate form)
+├── apply.html         The client form — one short page, 10 fields
 ├── privacy.html       Template policy (NOT legal advice)
 ├── terms.html         Template terms (NOT legal advice)
 ├── 404.html
@@ -101,16 +103,31 @@ first at <https://webaim.org/resources/contrastchecker/> — 4.5:1 minimum.
 > the token set, not just `color`. If you build a new dark section, copy that
 > token block or components reading `var(--fg)` will render ink-on-ink.
 
-### Fonts
+### Fonts — read this before changing them
 
-Currently Archivo (display), Inter (body), IBM Plex Mono (labels), loaded
-from Google Fonts. To change: edit the `<link>` tags in **every** `.html`
-`<head>`, then the `--font-*` tokens in `css/styles.css`.
+The site uses **Noto Sans Display** (headlines), **Inter** (body) and
+**JetBrains Mono** (labels), loaded from Google Fonts.
 
-To self-host instead (faster, and avoids the Google Fonts GDPR question that
-affects EU/UK businesses): download from <https://gwfh.mranftl.com>, put the
-`.woff2` files in `/fonts`, replace the `<link>` tags with `@font-face` rules
-using `font-display: swap`.
+These three were chosen because **they all ship Greek glyphs**. Many popular
+display faces do not — Archivo, Anton, Oswald, Montserrat and Barlow all
+lack a Greek subset, and Greek text in them silently falls back to a system
+font, which looks broken next to the rest of the page.
+
+Before swapping a family, check it covers Greek:
+
+```bash
+curl -s "https://fonts.googleapis.com/css2?family=YOUR+FONT&display=swap" \
+  -A "Mozilla/5.0 (Windows NT 10.0) Chrome/120.0" | grep -c "0370"
+```
+
+A result above `0` means the Greek range (U+0370–03FF) is served. Verified
+Greek-capable alternatives: Roboto Condensed, Fira Sans Condensed, Manrope,
+Noto Sans Mono, Roboto Mono, Source Code Pro.
+
+Change the families in **every** `.html` `<head>` and in the `--font-*`
+tokens in `css/styles.css`. Note that Noto Sans Display's width axis stops
+at 100 (some faces go to 125), so `font-variation-settings: "wdth"` values
+above 100 clamp silently.
 
 ### Images
 
@@ -139,76 +156,49 @@ monochrome direction. To show colour, delete that line from `.figure img`,
 
 ---
 
-## 2. The two forms
+## 2. The form
 
-There are deliberately two, doing different jobs:
+`apply.html` is the single form on the site. Ten fields, one page:
+name, email, phone, city, sport, goal (option cards), experience, program,
+injuries, message — plus a consent checkbox.
 
-**`apply.html` — the client application.** Six steps: about you, your goal,
-training background, health, program fit, then a review screen before
-sending. This is where the nav "Apply" button and every primary CTA point.
-It validates per step (you can't skip a required answer), autosaves to
-`localStorage` so a half-finished application survives a closed tab, and
-shows a confirmation panel rather than a page reload. Without JavaScript it
-degrades to one long form that posts normally.
+It validates inline (nothing sends until the required fields and the goal
+are answered), autosaves to `localStorage` so a half-filled form survives a
+closed tab, and swaps in a confirmation panel instead of reloading.
 
-To add, remove or reorder a step: each step is a `<section class="wizard__step"
-data-step="N" data-name="Label">`. The progress bar reads its segment count
-from `.wizard__bar` — add or remove a `<span class="wizard__seg">` to match.
-Mark a field required with `data-validate="required|email|min20"`, and a radio
-group with `data-required-group="Field name"` on the `.choices` wrapper.
+Field `name` attributes are **in Greek** ("Ονοματεπώνυμο", "Τραυματισμοί")
+because they become the column headings in whatever inbox or spreadsheet
+your form provider delivers to. The error-message ids follow the field name,
+so if you rename `Στόχος` you must rename `id="Στόχος-error"` to match.
 
-Field `name` attributes are written in plain English ("Full name", "Injuries")
-because they become the column headings in whatever inbox or spreadsheet your
-form provider delivers to. Rename them freely — the review screen reads them
-automatically.
+To add a field, copy an existing `.field` block. Mark it required with
+`data-validate="required"` (or `email`), give it a unique `id`, and add a
+matching `<p class="field__error" id="<id>-error" role="alert"></p>`.
 
-**`contact.html` — the low-friction alternative.** Name, email, message. For
-people who don't want to fill in an application, and a fallback if the
-application feels like too much for a quick question.
+`contact.html` deliberately has **no second form** — it holds your direct
+details and the booking link, and points at this one. One form, one place
+enquiries land.
 
-## 3. Connecting the forms
+## 3. Connecting the form
 
-Both forms take the same endpoint. Set it on each one separately —
-`#apply-form` in `apply.html` and `#enquiry-form` in `contact.html`.
+Set the endpoint on `#apply-form` in `apply.html`:
 
-The enquiry form is at `contact.html` and posts via `fetch`, so the visitor
-never leaves the page. Until you connect it, it stays in demo mode and says
-so. Pick one:
+**Formspree** — `action="https://formspree.io/f/YOUR_FORM_ID"`
 
-**Formspree** (easiest) — sign up, create a form, then:
-```html
-<form ... action="https://formspree.io/f/YOUR_FORM_ID" ...>
-```
-
-**Netlify Forms** (free if you host there) — add two attributes:
-```html
-<form id="enquiry-form" method="POST" action="/" netlify netlify-honeypot="_gotcha" ...>
-```
+**Netlify Forms** — `action="/"` plus `netlify netlify-honeypot="_gotcha"`
+on the `<form>` tag.
 
 **Basin / Getform / FormSubmit** — paste their endpoint into `action`.
 
-Any endpoint accepting a `POST` of `FormData` and returning 2xx works. The
-form already sends `name`, `email`, `sport`, `program`, `message`, plus
-`_subject` and `_source` fields, and carries a `_gotcha` honeypot — leave
-that hidden field in, it stops most spam.
-
-One more edit: `js/main.js` has a fallback message containing `[YOUR EMAIL]`
-shown if the request fails. Put your real address there.
+Anything that accepts a `POST` of `FormData` and returns 2xx works. Until
+you connect one, the form stays in demo mode and says so in Greek rather
+than failing silently. Leave the hidden `_gotcha` field in — it stops most
+spam bots.
 
 ### Booking tool
 
-
-`contact.html` has a button with `href="[YOUR CALENDLY OR CAL.COM LINK]"` —
-paste your scheduling URL in. For a full inline widget instead, replace the
-button with:
-
-```html
-<div class="calendly-inline-widget" data-url="https://calendly.com/YOUR-LINK"
-     style="min-width:320px;height:660px"></div>
-<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
-```
-
----
+`contact.html` has a button with `href="[LINK CALENDLY Ή CAL.COM]"` — paste
+your scheduling URL in.
 
 ## 4. Deploying
 
@@ -267,8 +257,7 @@ rest keeps working:
 3. split-text line masking · 4. IntersectionObserver reveals
 5. scroll progress bar · 6. hero parallax · 7. custom cursor + magnetic buttons
 8. animated counters · 9. FAQ accordion · 10. before/after slider
-11. form validation + submit · 12. footer year
-13. application wizard — steps, validation, autosave, review, submit
+11. form validation, autosave and submit · 12. footer year
 
 **Turning off effects**: delete the `data-reveal` / `data-split` attributes to
 stop animations; set `--grain` opacity to `0` in `:root` to remove the film
