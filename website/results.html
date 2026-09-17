@@ -62,8 +62,8 @@
       <a class="nav__link" href="contact.html">Contact</a>
     </nav>
 
-    <a class="btn btn--sm nav__cta" href="contact.html" data-magnetic>
-      Enquire <span class="arrow" aria-hidden="true">&#8594;</span>
+    <a class="btn btn--sm nav__cta" href="apply.html" data-magnetic>
+      Apply <span class="arrow" aria-hidden="true">&#8594;</span>
     </a>
 
     <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="site-menu">
@@ -82,6 +82,7 @@
       <li class="menu__item"><a class="menu__link" href="results.html"><span class="n">04</span> Results</a></li>
       <li class="menu__item"><a class="menu__link" href="faq.html"><span class="n">05</span> FAQ</a></li>
       <li class="menu__item"><a class="menu__link" href="contact.html"><span class="n">06</span> Contact</a></li>
+      <li class="menu__item"><a class="menu__link" href="apply.html"><span class="n">07</span> Apply</a></li>
     </ul>
   </nav>
   <div class="menu__foot">
@@ -138,7 +139,7 @@
     </div>
 
     <div class="col-12 md-5" style="align-self:center">
-      <p class="kicker" data-reveal>Case study 01</p>
+      <p class="eyebrow" data-reveal><span class="eyebrow__n">01</span> Case study</p>
       <h2 class="t-lg mt-3" data-split>[CLIENT NAME] &mdash; 16 weeks, two seasons of plateau undone.</h2>
       <div class="prose mt-3" data-reveal style="--d:120ms">
         <p>
@@ -147,12 +148,12 @@
           weekly volume by a third.
         </p>
       </div>
-      <ul class="row__list mt-3" data-reveal style="--d:180ms">
-        <li>30m sprint: <strong>4.21s &rarr; 3.94s</strong></li>
-        <li>CMJ: <strong>38cm &rarr; 46cm</strong></li>
-        <li>Trap bar deadlift 3RM: <strong>150kg &rarr; 182kg</strong></li>
-        <li>Sessions missed to injury: <strong>0</strong></li>
-      </ul>
+      <div class="metrics mt-3" data-reveal style="--d:180ms">
+        <div class="metric"><p class="metric__k">30m sprint</p><p class="metric__v">3.94s</p><p class="metric__d">from 4.21s</p></div>
+        <div class="metric"><p class="metric__k">Jump (CMJ)</p><p class="metric__v">46cm</p><p class="metric__d">from 38cm</p></div>
+        <div class="metric"><p class="metric__k">Trap bar 3RM</p><p class="metric__v">182kg</p><p class="metric__d">from 150kg</p></div>
+        <div class="metric"><p class="metric__k">Sessions lost</p><p class="metric__v">0</p><p class="metric__d">to injury, 16 weeks</p></div>
+      </div>
     </div>
   </div>
 </section>
@@ -164,7 +165,7 @@
   <div class="shell">
     <div class="shead">
       <div>
-        <p class="kicker" data-reveal>In their words</p>
+        <p class="eyebrow" data-reveal><span class="eyebrow__n">02</span> In their words</p>
         <h2 class="t-xl shead__title" data-split>What athletes say once the retest comes back.</h2>
       </div>
       <p class="prose" data-reveal style="--d:120ms">
@@ -176,37 +177,67 @@
       <figure class="quote" data-reveal>
         <p class="quote__result">30m: &minus;0.27s</p>
         <blockquote class="quote__text">Two seasons stuck at the same time. Twelve weeks with a proper plan and it finally moved — and I understood exactly why, which is the part nobody had ever given me.</blockquote>
-        <figcaption class="quote__by"><span>M.K.</span><span>Semi-pro footballer</span></figcaption>
+        <figcaption class="quote__by">
+          <span class="quote__who">
+            <span class="avatar" aria-hidden="true">MK</span>
+            <span><span class="quote__name">M.K.</span><span class="quote__role">Semi-pro footballer</span></span>
+          </span>
+        </figcaption>
       </figure>
 
       <figure class="quote" data-reveal>
         <p class="quote__result">Back squat +42kg</p>
         <blockquote class="quote__text">I'd written myself off as someone with bad leverages. Turns out I just had bad positions under fatigue. The weekly video review fixed in six weeks what four years of guessing hadn't.</blockquote>
-        <figcaption class="quote__by"><span>Sarah T.</span><span>Masters powerlifter</span></figcaption>
+        <figcaption class="quote__by">
+          <span class="quote__who">
+            <span class="avatar" aria-hidden="true">ST</span>
+            <span><span class="quote__name">Sarah T.</span><span class="quote__role">Masters powerlifter</span></span>
+          </span>
+        </figcaption>
       </figure>
 
       <figure class="quote" data-reveal>
         <p class="quote__result">Full season, no soft-tissue injury</p>
         <blockquote class="quote__text">Three hamstring injuries in three seasons before this. First full season available in years. The boring durability work I nearly argued about is the reason.</blockquote>
-        <figcaption class="quote__by"><span>J.R.</span><span>Rugby, [LEAGUE]</span></figcaption>
+        <figcaption class="quote__by">
+          <span class="quote__who">
+            <span class="avatar" aria-hidden="true">JR</span>
+            <span><span class="quote__name">J.R.</span><span class="quote__role">Rugby, [LEAGUE]</span></span>
+          </span>
+        </figcaption>
       </figure>
 
       <figure class="quote" data-reveal>
         <p class="quote__result">CMJ 41cm &rarr; 49cm</p>
         <blockquote class="quote__text">Training around shift work seemed impossible. Three sessions a week, built around nights, and I jumped higher at 34 than I did at 24.</blockquote>
-        <figcaption class="quote__by"><span>Dan M.</span><span>Firefighter &amp; volleyball</span></figcaption>
+        <figcaption class="quote__by">
+          <span class="quote__who">
+            <span class="avatar" aria-hidden="true">DM</span>
+            <span><span class="quote__name">Dan M.</span><span class="quote__role">Firefighter &amp; volleyball</span></span>
+          </span>
+        </figcaption>
       </figure>
 
       <figure class="quote" data-reveal>
         <p class="quote__result">Qualified &mdash; national champs</p>
         <blockquote class="quote__text">The plan changed three times because the testing said it should. That flexibility is what got me the qualifying time, and it's what I'd never have done on my own.</blockquote>
-        <figcaption class="quote__by"><span>A.P.</span><span>400m sprinter</span></figcaption>
+        <figcaption class="quote__by">
+          <span class="quote__who">
+            <span class="avatar" aria-hidden="true">AP</span>
+            <span><span class="quote__name">A.P.</span><span class="quote__role">400m sprinter</span></span>
+          </span>
+        </figcaption>
       </figure>
 
       <figure class="quote" data-reveal>
         <p class="quote__result">Back to full training in 11 weeks</p>
         <blockquote class="quote__text">Post-ACL I was terrified of change of direction. Progressive, measured, never rushed — and I trusted the knee again before I was cleared to play.</blockquote>
-        <figcaption class="quote__by"><span>Leah B.</span><span>Netball, returning from injury</span></figcaption>
+        <figcaption class="quote__by">
+          <span class="quote__who">
+            <span class="avatar" aria-hidden="true">LB</span>
+            <span><span class="quote__name">Leah B.</span><span class="quote__role">Netball, returning from injury</span></span>
+          </span>
+        </figcaption>
       </figure>
     </div>
   </div>
@@ -237,7 +268,7 @@
       not moving right now — I'll reply with an honest read on whether I can help.
     </p>
     <div class="btn-row mt-4" data-reveal>
-      <a class="btn" href="contact.html" data-magnetic>Start the conversation <span class="arrow" aria-hidden="true">&#8594;</span></a>
+      <a class="btn" href="apply.html" data-magnetic>Start your application <span class="arrow" aria-hidden="true">&#8594;</span></a>
       <a class="btn btn--ghost" href="services.html">See the programs</a>
     </div>
   </div>
@@ -260,6 +291,7 @@
           <li><a href="services.html">Services</a></li>
           <li><a href="results.html">Results</a></li>
           <li><a href="faq.html">FAQ</a></li>
+          <li><a href="apply.html">Apply</a></li>
         </ul>
       </div>
 

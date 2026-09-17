@@ -459,6 +459,266 @@
     });
   })();
 
+
+  /* ---------- 13. CLIENT APPLICATION WIZARD (apply.html) ----------
+     Multi-step form with per-step validation, progress, localStorage
+     autosave and a review step. Degrades to one long form without JS
+     (see the <noscript> block in apply.html). */
+  (function wizard() {
+    var form = $('#apply-form');
+    if (!form) return;
+
+    var steps   = $$('.wizard__step', form);
+    var segs    = $$('.wizard__seg', form);
+    var nextBtn = $('#wizard-next');
+    var backBtn = $('#wizard-back');
+    var sendBtn = $('#wizard-submit');
+    var nowEl   = $('#step-now');
+    var nameEl  = $('#step-name');
+    var announce= $('#step-announce');
+    var reviewOut = $('#review-out');
+    var statusEl  = $('#apply-status');
+    var savedNote = $('#saved-note');
+    var donePanel = $('#apply-done');
+    var KEY = 'apex-application-v1';
+    var i = 0;
+
+    /* --- validation --- */
+    var checks = {
+      required: function (v) { return v.trim().length > 0 || 'This one is required.'; },
+      email:    function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()) || 'Please enter a valid email address.'; },
+      min20:    function (v) { return v.trim().length >= 20 || 'A little more detail helps — 20 characters minimum.'; },
+      checked:  function (v, el) { return el.checked || 'Please confirm this to continue.'; }
+    };
+
+    function errorSlot(id) { return document.getElementById(id + '-error'); }
+
+    function validateField(el) {
+      var rule = checks[el.dataset.validate];
+      if (!rule) return true;
+      var res = rule(el.value, el);
+      var ok = res === true;
+      el.setAttribute('aria-invalid', String(!ok));
+      var slot = errorSlot(el.id);
+      if (slot) slot.textContent = ok ? '' : res;
+      return ok;
+    }
+
+    // Radio groups marked data-required-group need one selection.
+    function validateGroups(scope) {
+      var ok = true;
+      $$('[data-required-group]', scope).forEach(function (g) {
+        var name = g.getAttribute('data-required-group');
+        var picked = form.querySelector('input[name="' + name + '"]:checked');
+        var slot = errorSlot(name);
+        if (slot) slot.textContent = picked ? '' : 'Please choose one to continue.';
+        if (!picked) ok = false;
+      });
+      return ok;
+    }
+
+    function validateStep(idx) {
+      var scope = steps[idx];
+      var ok = true;
+      $$('[data-validate]', scope).forEach(function (el) { if (!validateField(el)) ok = false; });
+      if (!validateGroups(scope)) ok = false;
+      if (!ok) {
+        var bad = scope.querySelector('[aria-invalid="true"]') ||
+                  scope.querySelector('[data-required-group]');
+        if (bad) {
+          (bad.focus ? bad : bad.querySelector('input')).focus({ preventScroll: true });
+          bad.scrollIntoView({ block: 'center', behavior: reduced ? 'auto' : 'smooth' });
+        }
+      }
+      return ok;
+    }
+
+    // Re-validate as the visitor fixes things, never before they've tried.
+    $$('[data-validate]', form).forEach(function (el) {
+      el.addEventListener('blur', function () { if (el.value.trim()) validateField(el); });
+      el.addEventListener('input', function () {
+        if (el.getAttribute('aria-invalid') === 'true') validateField(el);
+      });
+    });
+    $$('[data-required-group] input', form).forEach(function (el) {
+      el.addEventListener('change', function () {
+        var slot = errorSlot(el.name);
+        if (slot) slot.textContent = '';
+      });
+    });
+
+    /* --- step navigation --- */
+    function show(idx, initial) {
+      i = Math.max(0, Math.min(idx, steps.length - 1));
+      steps.forEach(function (s, n) {
+        s.classList.toggle('is-active', n === i);
+        s.setAttribute('aria-hidden', String(n !== i));
+      });
+      segs.forEach(function (s, n) {
+        s.classList.toggle('is-done', n < i);
+        s.classList.toggle('is-now', n === i);
+      });
+
+      var last = i === steps.length - 1;
+      backBtn.hidden = i === 0;
+      nextBtn.style.display = last ? 'none' : '';
+      sendBtn.style.display = last ? '' : 'none';
+
+      if (nowEl)  nowEl.textContent = i + 1;
+      if (nameEl) nameEl.textContent = steps[i].dataset.name;
+      if (announce) announce.textContent = 'Step ' + (i + 1) + ' of ' + steps.length + ': ' + steps[i].dataset.name;
+
+      if (last) buildReview();
+
+      // On first paint, leave the page where it is — the visitor has not
+      // interacted yet, so stealing focus and scroll is hostile.
+      if (initial) return;
+
+      // Moving between steps, take focus to the new heading so screen
+      // readers announce it and keyboard order restarts in the right place.
+      var h = steps[i].querySelector('h2');
+      if (h) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); }
+
+      var top = form.getBoundingClientRect().top + window.scrollY - 110;
+      window.scrollTo({ top: top, behavior: reduced ? 'auto' : 'smooth' });
+    }
+
+    nextBtn.addEventListener('click', function () { if (validateStep(i)) { save(); show(i + 1); } });
+    backBtn.addEventListener('click', function () { show(i - 1); });
+
+    // Enter advances rather than submitting early (except in a textarea).
+    form.addEventListener('keydown', function (e) {
+      if (e.key !== 'Enter' || e.target.tagName === 'TEXTAREA') return;
+      if (i < steps.length - 1) { e.preventDefault(); nextBtn.click(); }
+    });
+
+    /* --- review step --- */
+    function buildReview() {
+      if (!reviewOut) return;
+      var data = new FormData(form);
+      var seen = {};
+      var html = '';
+      data.forEach(function (v, k) {
+        if (k.charAt(0) === '_' || k === 'Consent') return;
+        if (seen[k] !== undefined) { seen[k] += ', ' + v; return; }
+        seen[k] = v;
+      });
+      Object.keys(seen).forEach(function (k) {
+        var v = String(seen[k]).trim();
+        if (!v) return;
+        html += '<div class="review__row"><dt class="review__k">' + esc(k) + '</dt>' +
+                '<dd class="review__v">' + esc(v) + '</dd></div>';
+      });
+      reviewOut.innerHTML = html
+        ? '<dl style="margin:0">' + html + '</dl>'
+        : '<p class="review__v" style="padding:1rem 0">Nothing filled in yet — step back and add your details.</p>';
+    }
+
+    function esc(t) {
+      return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;')
+                      .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    /* --- autosave, so a long form survives a closed tab --- */
+    var saveTimer;
+    function save() {
+      try {
+        var out = {};
+        new FormData(form).forEach(function (v, k) {
+          if (k.charAt(0) === '_') return;
+          if (out[k] === undefined) out[k] = v;
+          else if (Array.isArray(out[k])) out[k].push(v);
+          else out[k] = [out[k], v];
+        });
+        localStorage.setItem(KEY, JSON.stringify(out));
+        if (savedNote) {
+          savedNote.classList.add('is-on');
+          clearTimeout(saveTimer);
+          saveTimer = setTimeout(function () { savedNote.classList.remove('is-on'); }, 1800);
+        }
+      } catch (e) { /* private mode or blocked storage — carry on regardless */ }
+    }
+
+    function restore() {
+      var raw;
+      try { raw = localStorage.getItem(KEY); } catch (e) { return; }
+      if (!raw) return;
+      var data;
+      try { data = JSON.parse(raw); } catch (e) { return; }
+
+      Object.keys(data).forEach(function (k) {
+        var vals = [].concat(data[k]);
+        var els = $$('[name="' + (window.CSS && CSS.escape ? CSS.escape(k) : k) + '"]', form);
+        els.forEach(function (el) {
+          if (el.type === 'checkbox' || el.type === 'radio') {
+            if (vals.indexOf(el.value) !== -1) el.checked = true;
+          } else if (vals[0] !== undefined) {
+            el.value = vals[0];
+          }
+        });
+      });
+    }
+
+    form.addEventListener('input',  function () { clearTimeout(saveTimer); saveTimer = setTimeout(save, 600); });
+    form.addEventListener('change', save);
+
+    /* --- submit --- */
+    function say(msg, state) {
+      if (!statusEl) return;
+      statusEl.hidden = false;
+      statusEl.dataset.state = state;
+      statusEl.textContent = msg;
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      var trap = form.querySelector('[name="_gotcha"]');
+      if (trap && trap.value) return;
+
+      // Re-check every step, not just this one — someone may have gone back.
+      for (var n = 0; n < steps.length; n++) {
+        if (!validateStep(n)) {
+          show(n);
+          say('Something on step ' + (n + 1) + ' still needs attention.', 'err');
+          return;
+        }
+      }
+
+      var action = form.getAttribute('action') || '';
+      if (!action || action.indexOf('REPLACE_WITH') !== -1) {
+        say('Demo mode: no form endpoint is connected yet. See README.md → "Connecting the form". Your answers are saved in this browser.', 'err');
+        return;
+      }
+
+      sendBtn.disabled = true;
+      var label = sendBtn.textContent;
+      sendBtn.textContent = 'Sending…';
+      say('Sending your application…', 'ok');
+
+      fetch(action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
+        .then(function (r) {
+          if (!r.ok) throw new Error('Request failed: ' + r.status);
+          try { localStorage.removeItem(KEY); } catch (err) {}
+          form.style.display = 'none';
+          if (donePanel) {
+            donePanel.classList.add('is-on');
+            donePanel.setAttribute('tabindex', '-1');
+            donePanel.focus({ preventScroll: true });
+            donePanel.scrollIntoView({ block: 'start', behavior: reduced ? 'auto' : 'smooth' });
+          }
+        })
+        .catch(function () {
+          say('That did not send. Your answers are still saved here — try again, or email me at [YOUR EMAIL].', 'err');
+          sendBtn.disabled = false;
+          sendBtn.textContent = label;
+        });
+    });
+
+    restore();
+    show(0, true);
+  })();
+
   /* ---------- 12. CURRENT YEAR ---------- */
   $$('[data-year]').forEach(function (el) { el.textContent = new Date().getFullYear(); });
 

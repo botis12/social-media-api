@@ -11,7 +11,8 @@ website/
 ├── services.html      4 programs + pricing
 ├── results.html       Stats, before/after slider, testimonials
 ├── faq.html           8-question accordion (+ FAQ schema)
-├── contact.html       Enquiry form, direct details, booking link
+├── contact.html       Short enquiry form, direct details, booking link
+├── apply.html         6-step client application (the main conversion path)
 ├── privacy.html       Template policy (NOT legal advice)
 ├── terms.html         Template terms (NOT legal advice)
 ├── 404.html
@@ -69,7 +70,7 @@ Replace these placeholders across all pages:
 | `[YOUR PHONE E164]` | `tel:` links — use `+441234567890` format |
 | `[GYM NAME]` | About, services, contact |
 | `[INSTAGRAM URL]` etc. | Footer + contact social links |
-| `[YOUR CERTIFICATION 1]` … | Home marquee, About credentials list |
+| `[YOUR CERTIFICATION 1]` … | Home marquee, About credentials list, home credentials chips |
 | `$[XXX]` | Services pricing |
 | `https://www.your-domain.com` | **Canonical URLs, OG tags, sitemap, robots, all JSON-LD** |
 
@@ -138,7 +139,37 @@ monochrome direction. To show colour, delete that line from `.figure img`,
 
 ---
 
-## 2. Connecting the form
+## 2. The two forms
+
+There are deliberately two, doing different jobs:
+
+**`apply.html` — the client application.** Six steps: about you, your goal,
+training background, health, program fit, then a review screen before
+sending. This is where the nav "Apply" button and every primary CTA point.
+It validates per step (you can't skip a required answer), autosaves to
+`localStorage` so a half-finished application survives a closed tab, and
+shows a confirmation panel rather than a page reload. Without JavaScript it
+degrades to one long form that posts normally.
+
+To add, remove or reorder a step: each step is a `<section class="wizard__step"
+data-step="N" data-name="Label">`. The progress bar reads its segment count
+from `.wizard__bar` — add or remove a `<span class="wizard__seg">` to match.
+Mark a field required with `data-validate="required|email|min20"`, and a radio
+group with `data-required-group="Field name"` on the `.choices` wrapper.
+
+Field `name` attributes are written in plain English ("Full name", "Injuries")
+because they become the column headings in whatever inbox or spreadsheet your
+form provider delivers to. Rename them freely — the review screen reads them
+automatically.
+
+**`contact.html` — the low-friction alternative.** Name, email, message. For
+people who don't want to fill in an application, and a fallback if the
+application feels like too much for a quick question.
+
+## 3. Connecting the forms
+
+Both forms take the same endpoint. Set it on each one separately —
+`#apply-form` in `apply.html` and `#enquiry-form` in `contact.html`.
 
 The enquiry form is at `contact.html` and posts via `fetch`, so the visitor
 never leaves the page. Until you connect it, it stays in demo mode and says
@@ -166,6 +197,7 @@ shown if the request fails. Put your real address there.
 
 ### Booking tool
 
+
 `contact.html` has a button with `href="[YOUR CALENDLY OR CAL.COM LINK]"` —
 paste your scheduling URL in. For a full inline widget instead, replace the
 button with:
@@ -178,7 +210,7 @@ button with:
 
 ---
 
-## 3. Deploying
+## 4. Deploying
 
 **Netlify** — drag the `website/` folder onto <https://app.netlify.com/drop>.
 Done. For git deploys set base directory `website`, publish directory `.`,
@@ -198,7 +230,7 @@ above, then submit `sitemap.xml` in Google Search Console.
 
 ---
 
-## 4. Analytics (optional)
+## 5. Analytics (optional)
 
 Add before `</head>` on every page. Plausible is cookieless, so in most
 jurisdictions it needs no consent banner:
@@ -221,7 +253,7 @@ success branch of the fetch in `js/main.js`.
 
 ---
 
-## 5. How the code is organised
+## 6. How the code is organised
 
 **CSS** (`css/styles.css`) is one file in 25 numbered sections — tokens,
 reset, a11y, layout, type, buttons, nav, hero, marquee, stats, cards,
@@ -236,6 +268,7 @@ rest keeps working:
 5. scroll progress bar · 6. hero parallax · 7. custom cursor + magnetic buttons
 8. animated counters · 9. FAQ accordion · 10. before/after slider
 11. form validation + submit · 12. footer year
+13. application wizard — steps, validation, autosave, review, submit
 
 **Turning off effects**: delete the `data-reveal` / `data-split` attributes to
 stop animations; set `--grain` opacity to `0` in `:root` to remove the film
@@ -244,7 +277,7 @@ grain; delete IIFE 7 to remove the custom cursor.
 `prefers-reduced-motion` is honoured throughout — all of it degrades to a
 static page for visitors who ask for that.
 
-## 6. Accessibility notes
+## 7. Accessibility notes
 
 Semantic landmarks, one `<h1>` per page, no skipped heading levels, skip
 link, visible focus rings, labelled form fields with `role="alert"` errors,
@@ -253,7 +286,7 @@ before/after slider (it's a real `<input type="range">`), alt text on every
 image. If you edit, keep those intact — and write real alt text describing
 your photos.
 
-## 7. Before you go live
+## 8. Before you go live
 
 See the checklist in the pull request / handover notes, or re-read the
 `CUSTOMIZE` comments. The short version: **replace every statistic and
