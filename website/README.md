@@ -22,7 +22,8 @@ website/
 └── netlify.toml · vercel.json · .nojekyll
 ```
 
-Preview locally — any static server:
+Preview locally — double-click `start.command` (Mac/Linux) or `start.bat` (Windows),
+which finds a free port, starts a server and opens your browser. Or manually:
 
 ```bash
 npx http-server -p 8080 .     # then open http://localhost:8080
