@@ -49,8 +49,9 @@ export function createCustomServer(app: express.Application): void {
   // Error handling
   app.use(errorHandler);
 
-  // 404 handler
-  app.use((req, res) => {
+  // 404 handler — scoped to /api so frontend routes (e.g. /dashboard) fall
+  // through to the Vite/static handlers registered after this in _core/index.ts
+  app.use('/api', (req, res) => {
     res.status(404).json({ error: 'Not found' });
   });
 
