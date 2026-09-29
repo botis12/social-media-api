@@ -26,6 +26,18 @@ function lyk7_install_on_switch() {
 add_action( 'after_switch_theme', 'lyk7_install_on_switch', 20 );
 
 /**
+ * Also run when the theme files were replaced in place (upload over the
+ * active theme, FTP copy): WordPress does not fire after_switch_theme then.
+ */
+function lyk7_install_if_needed() {
+	if ( get_option( 'lyk7_installed' ) === LYK7_VERSION || ! current_user_can( 'manage_options' ) || wp_doing_ajax() ) {
+		return;
+	}
+	lyk7_install_on_switch();
+}
+add_action( 'admin_init', 'lyk7_install_if_needed' );
+
+/**
  * Do the setup.
  *
  * @param bool $with_content Import the demo/current content too.

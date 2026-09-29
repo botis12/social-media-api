@@ -1,7 +1,7 @@
 === 7ο ΓΕΛ Ιλίου ===
 Requires at least: 6.4
 Requires PHP: 8.0
-Version: 1.1.0
+Version: 1.1.1
 
 == Εγκατάσταση ==
 
