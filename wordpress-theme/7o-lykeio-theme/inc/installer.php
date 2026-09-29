@@ -110,6 +110,8 @@ function lyk7_install( $with_content = true ) {
 	lyk7_install_menus( $page_ids );
 	$log[] = 'Δημιουργήθηκαν/ενημερώθηκαν τα μενού.';
 
+	lyk7_check_rewrites();
+
 	// Rules are rebuilt on wp_loaded (see lyk7_maybe_flush_rewrites).
 	delete_option( 'lyk7_rewrite_version' );
 	update_option( 'lyk7_installed', LYK7_VERSION );
