@@ -1,0 +1,75 @@
+/* Print: documents and announcements are things people actually print. */
+
+.site-header,
+.site-footer,
+.today,
+.chip-bar,
+.doc-filters,
+.pagination,
+.post-nav,
+.breadcrumbs,
+.hero__actions,
+.section--related,
+.skip-link,
+.lightbox {
+	display: none !important;
+}
+
+body {
+	background: #fff;
+	color: #000;
+	font-size: 11pt;
+	line-height: 1.5;
+}
+
+.wrap,
+.wrap--text {
+	max-width: 100%;
+	padding: 0;
+}
+
+.hero {
+	min-height: 0;
+	background: none;
+	color: #000;
+}
+.hero__media,
+.hero__wash,
+.hero__edge {
+	display: none;
+}
+.hero__panel,
+.hero__title,
+.hero__text {
+	color: #000;
+}
+
+a {
+	color: #000;
+	text-decoration: underline;
+}
+
+/* Spell out link targets, since a printed page cannot be clicked. */
+.prose a[href^="http"]::after {
+	content: " (" attr(href) ")";
+	font-size: 9pt;
+	word-break: break-all;
+}
+
+.ann,
+.doc__link,
+.activity,
+.timetable {
+	border: 1px solid #999;
+	box-shadow: none;
+	break-inside: avoid;
+}
+
+.single__hero img,
+.mosaic {
+	break-inside: avoid;
+}
+
+h1, h2, h3 {
+	break-after: avoid;
+}
