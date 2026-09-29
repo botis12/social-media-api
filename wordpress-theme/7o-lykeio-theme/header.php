@@ -70,18 +70,7 @@ $lyk7_email  = lyk7_opt( 'email' );
 			</div>
 
 			<nav class="primary-nav" id="primary-nav" aria-label="Κύρια πλοήγηση">
-				<?php
-				wp_nav_menu(
-					array(
-						'theme_location' => 'primary',
-						'container'      => false,
-						'menu_class'     => 'menu',
-						'depth'          => 2,
-						'walker'         => new Lyk7_Nav_Walker(),
-						'fallback_cb'    => 'lyk7_menu_fallback',
-					)
-				);
-				?>
+				<?php lyk7_nav( 'primary', 'menu' ); ?>
 			</nav>
 
 			<div class="masthead__actions">

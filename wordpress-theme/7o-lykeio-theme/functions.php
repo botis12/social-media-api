@@ -11,7 +11,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'LYK7_VERSION', '1.1.1' );
+define( 'LYK7_VERSION', '1.2.0' );
 define( 'LYK7_DIR', get_template_directory() );
 define( 'LYK7_URI', get_template_directory_uri() );
 

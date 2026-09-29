@@ -94,6 +94,17 @@ function lyk7_customize_register( $wp_customize ) {
 		}
 	}
 
+	$wp_customize->add_setting( 'lyk7_use_wp_menus', array( 'default' => false, 'sanitize_callback' => 'wp_validate_boolean' ) );
+	$wp_customize->add_control(
+		'lyk7_use_wp_menus',
+		array(
+			'label'       => 'Χρήση των μενού του WordPress',
+			'description' => 'Αφήστε το ατσέκαρτο: το θέμα δείχνει μόνο του όλες τις σελίδες. Τσεκάρετε μόνο αν θέλετε να φτιάχνετε το μενού χειροκίνητα από Εμφάνιση → Μενού.',
+			'section'     => 'lyk7_school',
+			'type'        => 'checkbox',
+		)
+	);
+
 	$images = array(
 		'hero_image'   => 'Κεντρική εικόνα αρχικής',
 		'about_image'  => '«Το σχολείο μας» — μεγάλη εικόνα',

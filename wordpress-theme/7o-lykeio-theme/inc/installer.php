@@ -2,7 +2,7 @@
 /**
  * One-click setup. Runs automatically when the theme is activated:
  *
- *  - pretty permalinks (/%postname%/) and a rewrite flush;
+ *  - a rewrite flush (links work with any permalink setting);
  *  - the pages (Το σχολείο μας, Μαθητές & Γονείς, Επικοινωνία …);
  *  - categories for announcements, activities and documents;
  *  - the four menus, assigned to their locations;
@@ -30,12 +30,17 @@ add_action( 'after_switch_theme', 'lyk7_install_on_switch', 20 );
  * active theme, FTP copy): WordPress does not fire after_switch_theme then.
  */
 function lyk7_install_if_needed() {
-	if ( get_option( 'lyk7_installed' ) === LYK7_VERSION || ! current_user_can( 'manage_options' ) || wp_doing_ajax() ) {
+	if ( get_option( 'lyk7_installed' ) === LYK7_VERSION || wp_doing_ajax() || wp_doing_cron() || is_customize_preview() ) {
 		return;
 	}
+	if ( get_transient( 'lyk7_installing' ) ) {
+		return;
+	}
+	set_transient( 'lyk7_installing', 1, 5 * MINUTE_IN_SECONDS );
 	lyk7_install_on_switch();
+	delete_transient( 'lyk7_installing' );
 }
-add_action( 'admin_init', 'lyk7_install_if_needed' );
+add_action( 'wp_loaded', 'lyk7_install_if_needed', 5 );
 
 /**
  * Do the setup.
@@ -58,13 +63,6 @@ function lyk7_install( $with_content = true ) {
 	}
 	if ( ! get_option( 'timezone_string' ) && ! (float) get_option( 'gmt_offset' ) ) {
 		update_option( 'timezone_string', 'Europe/Athens' );
-	}
-
-	// Pretty permalinks — without them only the homepage works.
-	if ( ! get_option( 'permalink_structure' ) ) {
-		global $wp_rewrite;
-		$wp_rewrite->set_permalink_structure( '/%postname%/' );
-		$log[] = 'Ενεργοποιήθηκαν οι μόνιμοι σύνδεσμοι /%postname%/.';
 	}
 
 	// Pages.

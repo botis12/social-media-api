@@ -131,3 +131,133 @@ function lyk7_default_links( $location ) {
 			);
 	}
 }
+
+/**
+ * Render a navigation area.
+ *
+ * By default the theme draws its own navigation, so every link works right
+ * after activation whatever menus the site already had. Tick
+ * «Χρήση των μενού του WordPress» in the Customizer to manage menus by hand.
+ *
+ * @param string $location Location.
+ * @param string $class    List class.
+ */
+function lyk7_nav( $location, $class ) {
+	if ( get_theme_mod( 'lyk7_use_wp_menus' ) && has_nav_menu( $location ) ) {
+		wp_nav_menu(
+			array(
+				'theme_location' => $location,
+				'container'      => false,
+				'menu_class'     => $class,
+				'depth'          => 'primary' === $location ? 2 : 1,
+				'walker'         => new Lyk7_Nav_Walker(),
+			)
+		);
+		return;
+	}
+
+	$items = lyk7_builtin_nav( $location );
+
+	echo '<ul class="' . esc_attr( $class ) . '">';
+	foreach ( $items as $item ) {
+		$children = isset( $item[2] ) ? $item[2] : array();
+		$current  = lyk7_is_current( $item[1] );
+		$active   = $current;
+		foreach ( $children as $child ) {
+			$active = $active || lyk7_is_current( $child[1] );
+		}
+
+		$classes = array( 'menu-item' );
+		if ( $children ) {
+			$classes[] = 'menu-item-has-children';
+			$classes[] = 'has-submenu';
+		}
+		if ( $current ) {
+			$classes[] = 'current-menu-item';
+		} elseif ( $active ) {
+			$classes[] = 'current-menu-ancestor';
+		}
+
+		echo '<li class="' . esc_attr( implode( ' ', $classes ) ) . '">';
+		lyk7_nav_link( $item[0], $item[1], $current );
+
+		if ( $children ) {
+			echo '<button type="button" class="submenu-toggle" aria-expanded="false" aria-label="' . esc_attr( 'Άνοιγμα υπομενού: ' . $item[0] ) . '">' . lyk7_get_icon( 'arrow', 16 ) . '</button>'; // phpcs:ignore WordPress.Security.EscapeOutput
+			echo '<ul class="submenu">';
+			foreach ( $children as $child ) {
+				$c = lyk7_is_current( $child[1] );
+				echo '<li class="menu-item' . ( $c ? ' current-menu-item' : '' ) . '">';
+				lyk7_nav_link( $child[0], $child[1], $c );
+				echo '</li>';
+			}
+			echo '</ul>';
+		}
+		echo '</li>';
+	}
+	echo '</ul>';
+}
+
+/**
+ * One link, with the external-link icon for other sites.
+ *
+ * @param string $label   Label.
+ * @param string $url     URL.
+ * @param bool   $current Current page.
+ */
+function lyk7_nav_link( $label, $url, $current ) {
+	$host     = wp_parse_url( home_url(), PHP_URL_HOST );
+	$external = wp_parse_url( $url, PHP_URL_HOST ) && wp_parse_url( $url, PHP_URL_HOST ) !== $host;
+
+	printf(
+		'<a class="menu-link" href="%s"%s%s>%s%s</a>',
+		esc_url( $url ),
+		$current ? ' aria-current="page"' : '',
+		$external ? ' target="_blank" rel="noopener noreferrer"' : '',
+		esc_html( $label ),
+		$external ? ' ' . lyk7_get_icon( 'external', 14, 'menu-link__ext' ) : '' // phpcs:ignore WordPress.Security.EscapeOutput
+	);
+}
+
+/**
+ * Is this URL the page being viewed (or its section)?
+ *
+ * @param string $url URL.
+ * @return bool
+ */
+function lyk7_is_current( $url ) {
+	static $here = null;
+	if ( null === $here ) {
+		$here = untrailingslashit( strtok( home_url( add_query_arg( array() ) ), '#' ) );
+	}
+	$url = untrailingslashit( strtok( (string) $url, '#' ) );
+	if ( $url === untrailingslashit( home_url() ) ) {
+		return $here === $url;
+	}
+	return $url && ( $here === $url || 0 === strpos( $here, $url . '/' ) );
+}
+
+/**
+ * Built-in navigation. Children only for the primary menu.
+ *
+ * @param string $location Location.
+ * @return array[] [ label, url, children? ]
+ */
+function lyk7_builtin_nav( $location ) {
+	if ( 'primary' !== $location ) {
+		return lyk7_default_links( $location );
+	}
+
+	$school   = get_page_by_path( 'to-scholeio-mas' );
+	$children = array();
+	if ( $school ) {
+		foreach ( get_pages( array( 'parent' => $school->ID, 'sort_column' => 'menu_order,post_title' ) ) as $child ) {
+			$children[] = array( get_the_title( $child ), get_permalink( $child ) );
+		}
+	}
+	$children[] = array( 'Συλλογή φωτογραφιών', get_post_type_archive_link( 'gallery_item' ) );
+
+	$items = lyk7_default_links( 'primary' );
+	$items[0][2] = $children;
+
+	return $items;
+}

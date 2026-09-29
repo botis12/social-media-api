@@ -55,34 +55,12 @@ $lyk7_email  = lyk7_opt( 'email' );
 
 			<nav class="footer-col" aria-label="Γρήγοροι σύνδεσμοι">
 				<h2 class="footer-heading">Γρήγοροι σύνδεσμοι</h2>
-				<?php
-				wp_nav_menu(
-					array(
-						'theme_location' => 'footer-quick',
-						'container'      => false,
-						'menu_class'     => 'footer-menu',
-						'depth'          => 1,
-						'walker'         => new Lyk7_Nav_Walker(),
-						'fallback_cb'    => 'lyk7_menu_fallback',
-					)
-				);
-				?>
+				<?php lyk7_nav( 'footer-quick', 'footer-menu' ); ?>
 			</nav>
 
 			<nav class="footer-col" aria-label="Χρήσιμοι σύνδεσμοι">
 				<h2 class="footer-heading">Χρήσιμοι σύνδεσμοι</h2>
-				<?php
-				wp_nav_menu(
-					array(
-						'theme_location' => 'footer-external',
-						'container'      => false,
-						'menu_class'     => 'footer-menu',
-						'depth'          => 1,
-						'walker'         => new Lyk7_Nav_Walker(),
-						'fallback_cb'    => 'lyk7_menu_fallback',
-					)
-				);
-				?>
+				<?php lyk7_nav( 'footer-external', 'footer-menu' ); ?>
 			</nav>
 
 			<div class="footer-col footer-col--hours">
@@ -103,17 +81,7 @@ $lyk7_email  = lyk7_opt( 'email' );
 			<p class="footer-copy">© <?php echo esc_html( wp_date( 'Y' ) ); ?> <?php bloginfo( 'name' ); ?></p>
 
 			<nav aria-label="Θεσμικές πληροφορίες">
-				<?php
-				wp_nav_menu(
-					array(
-						'theme_location' => 'legal',
-						'container'      => false,
-						'menu_class'     => 'footer-legal',
-						'depth'          => 1,
-						'fallback_cb'    => 'lyk7_menu_fallback',
-					)
-				);
-				?>
+				<?php lyk7_nav( 'legal', 'footer-legal' ); ?>
 			</nav>
 
 			<a class="footer-top" href="#top">

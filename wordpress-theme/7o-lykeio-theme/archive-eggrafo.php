@@ -18,6 +18,9 @@ $lyk7_years = get_terms( array( 'taxonomy' => 'sxoliko_etos', 'hide_empty' => tr
 ?>
 <div class="wrap section">
 	<form class="doc-filters" method="get" action="<?php echo esc_url( get_post_type_archive_link( 'eggrafo' ) ); ?>" data-doc-filters>
+		<?php if ( ! get_option( 'permalink_structure' ) ) : ?>
+			<input type="hidden" name="post_type" value="eggrafo">
+		<?php endif; ?>
 		<div class="doc-filters__field">
 			<label for="doc-search">Αναζήτηση στον τίτλο</label>
 			<input type="search" id="doc-search" data-doc-search placeholder="π.χ. κανονισμός, πανελλαδικές…" autocomplete="off">
