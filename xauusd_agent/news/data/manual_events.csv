@@ -1,0 +1,4 @@
+# Add your own events here (fallback when the online calendar is unreachable).
+# datetime is local time in the given IANA tz. Example:
+# 2026-11-03 10:00,America/New_York,USD,High,ISM Services PMI,manual
+datetime,tz,currency,impact,title,status

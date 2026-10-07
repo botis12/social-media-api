@@ -1,0 +1,142 @@
+# =====================================================================
+# XAUUSD ICT agent — όλες οι παράμετροι. Τίποτα δεν είναι hardcoded.
+# Ώρες: "HH:MM" στη ζώνη ώρας (IANA) που δηλώνεται δίπλα. Το DST
+# υπολογίζεται αυτόματα μέσω zoneinfo.
+# =====================================================================
+
+symbol:
+  name: XAUUSD              # όνομα στον broker (π.χ. XAUUSD, XAUUSD.m, GOLD)
+  # Τα παρακάτω χρησιμοποιούνται ΜΟΝΟ στο backtest. Live διαβάζονται από symbol_info().
+  contract_size: 100        # oz ανά 1 lot
+  tick_size: 0.01
+  volume_min: 0.01
+  volume_max: 50.0
+  volume_step: 0.01
+
+time:
+  trading_day_tz: Europe/Athens   # τα ημερήσια όρια μηδενίζουν 00:00 σε αυτή τη ζώνη
+  display_tz: Europe/Athens       # ώρες στα logs / Telegram / reports
+
+sessions:
+  # Ασιατικό range: 02:00–09:00 Ελλάδας (= 00:00–07:00 Λονδίνου όλο τον χρόνο)
+  asia: {tz: Europe/Athens, start: "02:00", end: "09:00"}
+  # Ελάχιστο ποσοστό M5 κεριών που πρέπει να υπάρχουν στο ασιατικό παράθυρο
+  asia_min_coverage: 0.8
+  killzones:
+    london:  {tz: Europe/Athens,    start: "10:00", end: "13:00"}
+    # 15:30–18:00 Ελλάδας είναι 08:30–11:00 Νέας Υόρκης ΕΚΤΟΣ από τις ~3 εβδομάδες
+    # τον χρόνο όπου ΗΠΑ/ΕΕ έχουν διαφορετικό DST. Αγκυρώνουμε στη Ν. Υόρκη ώστε το
+    # παράθυρο να ακολουθεί το άνοιγμα της αγοράς και τα news των 08:30 ET.
+    # Για αυστηρά ώρα Ελλάδας: {tz: Europe/Athens, start: "15:30", end: "18:00"}
+    newyork: {tz: America/New_York, start: "08:30", end: "11:00"}
+  # Κλείσιμο κάθε ανοιχτής θέσης / pending πριν το ημερήσιο break του χρυσού (17:00 ET)
+  force_close: {tz: America/New_York, time: "16:45"}
+
+strategy:
+  atr_period: 14                  # Wilder ATR στο M5
+  swing_lookback: 2               # fractal: N κεριά αριστερά & δεξιά (M5)
+  htf_swing_lookback: 2           # fractal για H1/H4 bias
+  htf_alignment: ny_close         # H1/H4 κεριά ευθυγραμμισμένα στο 17:00 ET (όπως οι περισσότεροι brokers)
+  require_h4_agreement: true      # το H4 bias πρέπει να συμφωνεί με το H1
+  mss_max_bars: 12                # μέγιστα M5 κεριά από το sweep έως το MSS
+  require_mss_close_inside_range: true
+  min_displacement_atr: 1.0       # μεγαλύτερο σώμα κεριού στο σκέλος MSS ≥ x·ATR
+  entry_mode: fvg_then_ob         # fvg_only | ob_only | fvg_then_ob
+  fvg_entry: mid                  # proximal | mid  (mid = consequent encroachment)
+  min_fvg_atr: 0.10               # ελάχιστο μέγεθος FVG σε ATR
+  ob_entry: mid                   # open | mid (mean threshold σώματος)
+  ob_search_bars: 10              # πόσα κεριά πριν το ακραίο σημείο ψάχνουμε για OB
+  entry_expiry_bars: 12           # το limit ακυρώνεται μετά από N M5 κεριά (ή στο τέλος του killzone)
+  sl_buffer_atr: 0.10             # stop = ακραίο sweep ± max(buffer_atr·ATR, buffer_min)
+  sl_buffer_min: 0.30             # $
+  min_sl_distance: 1.00           # $ — αποφυγή μικροσκοπικών stops (τεράστια lots, κόστος > edge)
+  max_sl_distance: 20.00          # $
+  min_rr: 2.0                     # target = αντίθετη ασιατική πλευρά· ΔΕΝ τεντώνεται αν R:R < min
+  max_setups_per_killzone: 1
+
+risk:
+  risk_per_trade_pct: 0.5         # επιτρεπτό εύρος 0.5–1.0 (επιβάλλεται από τον validator)
+  max_trades_per_day: 2
+  max_open_positions: 1
+  daily_loss_limit_pct: 2.0
+  close_positions_on_daily_limit: true
+  cap_risk_to_daily_budget: true  # δεν ανοίγει trade που θα μπορούσε να ξεπεράσει το ημερήσιο όριο
+  max_drawdown_pct: 8.0           # από high-water mark equity → κλείνει όλα + shutdown
+  max_spread: 0.50                # $ (π.χ. 50 cents). Πάνω από αυτό δεν μπαίνει
+  max_margin_usage_pct: 30.0      # live: απορρίπτει αν το margin > x% του free margin
+  state_file: state/risk_state.json
+  kill_switch_file: STOP
+
+costs:                             # backtest
+  commission_per_lot_rt: 7.0      # $ ανά lot round-turn (raw/ECN λογαριασμός)
+  spread_source: data             # data (spread στήλη) | fixed
+  spread_fixed: 0.25              # $ όταν spread_source=fixed ή λείπει η στήλη
+  spread_multiplier: 1.0          # συντηρητικό φούσκωμα του spread δεδομένων
+  spread_min: 0.10                # κάτω όριο spread σε $
+  slippage_stop: 0.10             # $ αρνητικό slippage σε stop-loss / market κλεισίματα
+  limit_fill_penetration: 0.00    # $ η τιμή πρέπει να περάσει το limit κατά τόσο για fill
+  initial_equity: 10000.0
+
+news:
+  minutes_before: 30
+  minutes_after: 30
+  currencies: [USD]
+  impacts: [High]
+  # Τίτλοι που μετράνε (case-insensitive, substring). Ίδια λίστα σε backtest & live.
+  keywords: [CPI, Non-Farm, NFP, FOMC, Federal Funds Rate, PCE]
+  # Live: μπλοκάρει ΚΑΘΕ high-impact USD event, όχι μόνο τα keywords (πιο ασφαλές)
+  live_block_all_high_impact: true
+  sources:
+    - https://nfs.faireconomy.media/ff_calendar_thisweek.json
+    - https://nfs.faireconomy.media/ff_calendar_nextweek.json
+  refresh_minutes: 360            # το feed ζητά αραιά requests· cache τοπικά
+  cache_dir: cache/news
+  historical_file: news/data/usd_high_impact.csv   # backtest + fallback
+  manual_file: news/data/manual_events.csv         # δικά σου events (fallback)
+  # Αν δεν υπάρχει καμία έγκυρη πηγή για την τρέχουσα εβδομάδα: block (ασφαλές) | allow
+  on_unavailable: block
+  cancel_pending_in_blackout: true
+
+execution:
+  magic: 20261007
+  poll_seconds: 5
+  deviation_points: 30            # μέγιστη απόκλιση τιμής για market orders
+  max_order_retries: 3
+  reconnect_max_attempts: 0       # 0 = άπειρες προσπάθειες με backoff
+  reconnect_backoff_max_s: 120
+  server_utc_offset_hours: auto   # auto = υπολογίζεται από tick time· ή ακέραιος
+  history_m5_bars: 6000           # bars για υπολογισμό H1/H4 bias live
+  order_comment: xau-ict
+
+telegram:
+  enabled: true
+  send_timeout_s: 10
+  poll_commands: true
+
+paths:
+  data_file: data/store/XAUUSD_M5.csv.gz
+  logs_dir: logs
+  reports_dir: reports
+
+backtest:
+  start: "2023-01-01"
+  end: "2026-09-30"
+
+walkforward:
+  holdout_fraction: 0.30          # τελευταίο 30% — δεν χρησιμοποιείται ΠΟΥΘΕΝΑ πριν την τελική αξιολόγηση
+  train_months: 12
+  test_months: 3
+  min_train_trades: 20
+  bootstrap_samples: 10000
+  random_baseline_runs: 500
+  seed: 42
+  # Μικρό, προκαθορισμένο grid. Δεν το μεγαλώνουμε εκ των υστέρων.
+  grid:
+    swing_lookback: [2, 3]
+    min_displacement_atr: [0.8, 1.0, 1.5]
+    fvg_entry: [proximal, mid]
+  # Κριτήρια edge, ορισμένα ΠΡΙΝ δούμε αποτελέσματα
+  criteria:
+    min_holdout_trades: 30
+    max_p_value_vs_random: 0.05
+    require_ci_lower_above_zero: true

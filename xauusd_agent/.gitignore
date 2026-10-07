@@ -1,0 +1,10 @@
+.env
+STOP
+__pycache__/
+*.pyc
+.pytest_cache/
+data/store/
+cache/
+logs/
+reports/
+state/

@@ -1,0 +1,211 @@
+# USD high-impact events (CPI, NFP, PCE, FOMC). Times in America/New_York.
+# Sources: BLS/BEA/Federal Reserve release schedules (compiled 2026-10). Includes
+# shutdown-related reschedules of late 2025 (Oct-2025 CPI/NFP were cancelled).
+# 'confirmed' = cross-checked against published schedules during research; 'recalled' = from
+# knowledge, not cross-checked; 'unverified' = uncertain. Please spot-check before relying on it.
+datetime,tz,currency,impact,title,status
+2023-01-06 08:30,America/New_York,USD,High,Non-Farm Employment Change,recalled
+2023-01-12 08:30,America/New_York,USD,High,CPI m/m,recalled
+2023-01-27 08:30,America/New_York,USD,High,Core PCE Price Index m/m,confirmed
+2023-02-01 14:00,America/New_York,USD,High,FOMC Statement / Federal Funds Rate,recalled
+2023-02-01 14:30,America/New_York,USD,High,FOMC Press Conference,recalled
+2023-02-03 08:30,America/New_York,USD,High,Non-Farm Employment Change,recalled
+2023-02-14 08:30,America/New_York,USD,High,CPI m/m,recalled
+2023-02-24 08:30,America/New_York,USD,High,Core PCE Price Index m/m,confirmed
+2023-03-10 08:30,America/New_York,USD,High,Non-Farm Employment Change,recalled
+2023-03-14 08:30,America/New_York,USD,High,CPI m/m,recalled
+2023-03-22 14:00,America/New_York,USD,High,FOMC Statement / Federal Funds Rate,recalled
+2023-03-22 14:30,America/New_York,USD,High,FOMC Press Conference,recalled
+2023-03-31 08:30,America/New_York,USD,High,Core PCE Price Index m/m,confirmed
+2023-04-07 08:30,America/New_York,USD,High,Non-Farm Employment Change,recalled
+2023-04-12 08:30,America/New_York,USD,High,CPI m/m,recalled
+2023-04-28 08:30,America/New_York,USD,High,Core PCE Price Index m/m,confirmed
+2023-05-03 14:00,America/New_York,USD,High,FOMC Statement / Federal Funds Rate,recalled
+2023-05-03 14:30,America/New_York,USD,High,FOMC Press Conference,recalled
+2023-05-05 08:30,America/New_York,USD,High,Non-Farm Employment Change,recalled
+2023-05-10 08:30,America/New_York,USD,High,CPI m/m,recalled
+2023-05-26 08:30,America/New_York,USD,High,Core PCE Price Index m/m,confirmed
+2023-06-02 08:30,America/New_York,USD,High,Non-Farm Employment Change,recalled
+2023-06-13 08:30,America/New_York,USD,High,CPI m/m,recalled
+2023-06-14 14:00,America/New_York,USD,High,FOMC Statement / Federal Funds Rate,recalled
+2023-06-14 14:30,America/New_York,USD,High,FOMC Press Conference,recalled
+2023-06-30 08:30,America/New_York,USD,High,Core PCE Price Index m/m,confirmed
+2023-07-07 08:30,America/New_York,USD,High,Non-Farm Employment Change,recalled
+2023-07-12 08:30,America/New_York,USD,High,CPI m/m,recalled
+2023-07-26 14:00,America/New_York,USD,High,FOMC Statement / Federal Funds Rate,recalled
+2023-07-26 14:30,America/New_York,USD,High,FOMC Press Conference,recalled
+2023-07-28 08:30,America/New_York,USD,High,Core PCE Price Index m/m,confirmed
+2023-08-04 08:30,America/New_York,USD,High,Non-Farm Employment Change,recalled
+2023-08-10 08:30,America/New_York,USD,High,CPI m/m,recalled
+2023-08-31 08:30,America/New_York,USD,High,Core PCE Price Index m/m,confirmed
+2023-09-01 08:30,America/New_York,USD,High,Non-Farm Employment Change,recalled
+2023-09-13 08:30,America/New_York,USD,High,CPI m/m,recalled
+2023-09-20 14:00,America/New_York,USD,High,FOMC Statement / Federal Funds Rate,recalled
+2023-09-20 14:30,America/New_York,USD,High,FOMC Press Conference,recalled
+2023-09-29 08:30,America/New_York,USD,High,Core PCE Price Index m/m,confirmed
+2023-10-06 08:30,America/New_York,USD,High,Non-Farm Employment Change,recalled
+2023-10-12 08:30,America/New_York,USD,High,CPI m/m,recalled
+2023-10-27 08:30,America/New_York,USD,High,Core PCE Price Index m/m,confirmed
+2023-11-01 14:00,America/New_York,USD,High,FOMC Statement / Federal Funds Rate,recalled
+2023-11-01 14:30,America/New_York,USD,High,FOMC Press Conference,recalled
+2023-11-03 08:30,America/New_York,USD,High,Non-Farm Employment Change,recalled
+2023-11-14 08:30,America/New_York,USD,High,CPI m/m,recalled
+2023-11-30 08:30,America/New_York,USD,High,Core PCE Price Index m/m,confirmed
+2023-12-08 08:30,America/New_York,USD,High,Non-Farm Employment Change,recalled
+2023-12-12 08:30,America/New_York,USD,High,CPI m/m,recalled
+2023-12-13 14:00,America/New_York,USD,High,FOMC Statement / Federal Funds Rate,recalled
+2023-12-13 14:30,America/New_York,USD,High,FOMC Press Conference,recalled
+2023-12-22 08:30,America/New_York,USD,High,Core PCE Price Index m/m,confirmed
+2024-01-05 08:30,America/New_York,USD,High,Non-Farm Employment Change,recalled
+2024-01-11 08:30,America/New_York,USD,High,CPI m/m,recalled
+2024-01-26 08:30,America/New_York,USD,High,Core PCE Price Index m/m,confirmed
+2024-01-31 14:00,America/New_York,USD,High,FOMC Statement / Federal Funds Rate,recalled
+2024-01-31 14:30,America/New_York,USD,High,FOMC Press Conference,recalled
+2024-02-02 08:30,America/New_York,USD,High,Non-Farm Employment Change,recalled
+2024-02-13 08:30,America/New_York,USD,High,CPI m/m,recalled
+2024-02-29 08:30,America/New_York,USD,High,Core PCE Price Index m/m,confirmed
+2024-03-08 08:30,America/New_York,USD,High,Non-Farm Employment Change,recalled
+2024-03-12 08:30,America/New_York,USD,High,CPI m/m,recalled
+2024-03-20 14:00,America/New_York,USD,High,FOMC Statement / Federal Funds Rate,recalled
+2024-03-20 14:30,America/New_York,USD,High,FOMC Press Conference,recalled
+2024-03-29 08:30,America/New_York,USD,High,Core PCE Price Index m/m,confirmed
+2024-04-05 08:30,America/New_York,USD,High,Non-Farm Employment Change,recalled
+2024-04-10 08:30,America/New_York,USD,High,CPI m/m,recalled
+2024-04-26 08:30,America/New_York,USD,High,Core PCE Price Index m/m,confirmed
+2024-05-01 14:00,America/New_York,USD,High,FOMC Statement / Federal Funds Rate,recalled
+2024-05-01 14:30,America/New_York,USD,High,FOMC Press Conference,recalled
+2024-05-03 08:30,America/New_York,USD,High,Non-Farm Employment Change,recalled
+2024-05-15 08:30,America/New_York,USD,High,CPI m/m,recalled
+2024-05-31 08:30,America/New_York,USD,High,Core PCE Price Index m/m,confirmed
+2024-06-07 08:30,America/New_York,USD,High,Non-Farm Employment Change,recalled
+2024-06-12 08:30,America/New_York,USD,High,CPI m/m,recalled
+2024-06-12 14:00,America/New_York,USD,High,FOMC Statement / Federal Funds Rate,recalled
+2024-06-12 14:30,America/New_York,USD,High,FOMC Press Conference,recalled
+2024-06-28 08:30,America/New_York,USD,High,Core PCE Price Index m/m,confirmed
+2024-07-05 08:30,America/New_York,USD,High,Non-Farm Employment Change,recalled
+2024-07-11 08:30,America/New_York,USD,High,CPI m/m,recalled
+2024-07-26 08:30,America/New_York,USD,High,Core PCE Price Index m/m,confirmed
+2024-07-31 14:00,America/New_York,USD,High,FOMC Statement / Federal Funds Rate,recalled
+2024-07-31 14:30,America/New_York,USD,High,FOMC Press Conference,recalled
+2024-08-02 08:30,America/New_York,USD,High,Non-Farm Employment Change,recalled
+2024-08-14 08:30,America/New_York,USD,High,CPI m/m,recalled
+2024-08-30 08:30,America/New_York,USD,High,Core PCE Price Index m/m,confirmed
+2024-09-06 08:30,America/New_York,USD,High,Non-Farm Employment Change,recalled
+2024-09-11 08:30,America/New_York,USD,High,CPI m/m,recalled
+2024-09-18 14:00,America/New_York,USD,High,FOMC Statement / Federal Funds Rate,recalled
+2024-09-18 14:30,America/New_York,USD,High,FOMC Press Conference,recalled
+2024-09-27 08:30,America/New_York,USD,High,Core PCE Price Index m/m,confirmed
+2024-10-04 08:30,America/New_York,USD,High,Non-Farm Employment Change,recalled
+2024-10-10 08:30,America/New_York,USD,High,CPI m/m,recalled
+2024-10-31 08:30,America/New_York,USD,High,Core PCE Price Index m/m,confirmed
+2024-11-01 08:30,America/New_York,USD,High,Non-Farm Employment Change,recalled
+2024-11-07 14:00,America/New_York,USD,High,FOMC Statement / Federal Funds Rate,recalled
+2024-11-07 14:30,America/New_York,USD,High,FOMC Press Conference,recalled
+2024-11-13 08:30,America/New_York,USD,High,CPI m/m,recalled
+2024-11-27 10:00,America/New_York,USD,High,Core PCE Price Index m/m,confirmed
+2024-12-06 08:30,America/New_York,USD,High,Non-Farm Employment Change,recalled
+2024-12-11 08:30,America/New_York,USD,High,CPI m/m,recalled
+2024-12-18 14:00,America/New_York,USD,High,FOMC Statement / Federal Funds Rate,recalled
+2024-12-18 14:30,America/New_York,USD,High,FOMC Press Conference,recalled
+2024-12-20 08:30,America/New_York,USD,High,Core PCE Price Index m/m,confirmed
+2025-01-10 08:30,America/New_York,USD,High,Non-Farm Employment Change,confirmed
+2025-01-15 08:30,America/New_York,USD,High,CPI m/m,confirmed
+2025-01-29 14:00,America/New_York,USD,High,FOMC Statement / Federal Funds Rate,recalled
+2025-01-29 14:30,America/New_York,USD,High,FOMC Press Conference,recalled
+2025-01-31 08:30,America/New_York,USD,High,Core PCE Price Index m/m,confirmed
+2025-02-07 08:30,America/New_York,USD,High,Non-Farm Employment Change,confirmed
+2025-02-12 08:30,America/New_York,USD,High,CPI m/m,confirmed
+2025-02-28 08:30,America/New_York,USD,High,Core PCE Price Index m/m,confirmed
+2025-03-07 08:30,America/New_York,USD,High,Non-Farm Employment Change,confirmed
+2025-03-12 08:30,America/New_York,USD,High,CPI m/m,confirmed
+2025-03-19 14:00,America/New_York,USD,High,FOMC Statement / Federal Funds Rate,recalled
+2025-03-19 14:30,America/New_York,USD,High,FOMC Press Conference,recalled
+2025-03-28 08:30,America/New_York,USD,High,Core PCE Price Index m/m,confirmed
+2025-04-04 08:30,America/New_York,USD,High,Non-Farm Employment Change,confirmed
+2025-04-10 08:30,America/New_York,USD,High,CPI m/m,confirmed
+2025-04-30 10:00,America/New_York,USD,High,Core PCE Price Index m/m,confirmed
+2025-05-02 08:30,America/New_York,USD,High,Non-Farm Employment Change,confirmed
+2025-05-07 14:00,America/New_York,USD,High,FOMC Statement / Federal Funds Rate,recalled
+2025-05-07 14:30,America/New_York,USD,High,FOMC Press Conference,recalled
+2025-05-13 08:30,America/New_York,USD,High,CPI m/m,confirmed
+2025-05-30 08:30,America/New_York,USD,High,Core PCE Price Index m/m,confirmed
+2025-06-06 08:30,America/New_York,USD,High,Non-Farm Employment Change,confirmed
+2025-06-11 08:30,America/New_York,USD,High,CPI m/m,confirmed
+2025-06-18 14:00,America/New_York,USD,High,FOMC Statement / Federal Funds Rate,recalled
+2025-06-18 14:30,America/New_York,USD,High,FOMC Press Conference,recalled
+2025-06-27 08:30,America/New_York,USD,High,Core PCE Price Index m/m,confirmed
+2025-07-03 08:30,America/New_York,USD,High,Non-Farm Employment Change,confirmed
+2025-07-15 08:30,America/New_York,USD,High,CPI m/m,confirmed
+2025-07-30 14:00,America/New_York,USD,High,FOMC Statement / Federal Funds Rate,recalled
+2025-07-30 14:30,America/New_York,USD,High,FOMC Press Conference,recalled
+2025-07-31 08:30,America/New_York,USD,High,Core PCE Price Index m/m,confirmed
+2025-08-01 08:30,America/New_York,USD,High,Non-Farm Employment Change,confirmed
+2025-08-12 08:30,America/New_York,USD,High,CPI m/m,confirmed
+2025-08-29 08:30,America/New_York,USD,High,Core PCE Price Index m/m,unverified
+2025-09-05 08:30,America/New_York,USD,High,Non-Farm Employment Change,confirmed
+2025-09-11 08:30,America/New_York,USD,High,CPI m/m,confirmed
+2025-09-17 14:00,America/New_York,USD,High,FOMC Statement / Federal Funds Rate,recalled
+2025-09-17 14:30,America/New_York,USD,High,FOMC Press Conference,recalled
+2025-09-26 08:30,America/New_York,USD,High,Core PCE Price Index m/m,confirmed
+2025-10-24 08:30,America/New_York,USD,High,CPI m/m,confirmed
+2025-10-29 14:00,America/New_York,USD,High,FOMC Statement / Federal Funds Rate,recalled
+2025-10-29 14:30,America/New_York,USD,High,FOMC Press Conference,recalled
+2025-11-20 08:30,America/New_York,USD,High,Non-Farm Employment Change,confirmed
+2025-12-05 10:00,America/New_York,USD,High,Core PCE Price Index m/m,confirmed
+2025-12-10 14:00,America/New_York,USD,High,FOMC Statement / Federal Funds Rate,recalled
+2025-12-10 14:30,America/New_York,USD,High,FOMC Press Conference,recalled
+2025-12-16 08:30,America/New_York,USD,High,Non-Farm Employment Change,confirmed
+2025-12-18 08:30,America/New_York,USD,High,CPI m/m,confirmed
+2026-01-09 08:30,America/New_York,USD,High,Non-Farm Employment Change,confirmed
+2026-01-13 08:30,America/New_York,USD,High,CPI m/m,confirmed
+2026-01-22 10:00,America/New_York,USD,High,Core PCE Price Index m/m,confirmed
+2026-01-28 14:00,America/New_York,USD,High,FOMC Statement / Federal Funds Rate,confirmed
+2026-01-28 14:30,America/New_York,USD,High,FOMC Press Conference,confirmed
+2026-02-11 08:30,America/New_York,USD,High,Non-Farm Employment Change,confirmed
+2026-02-13 08:30,America/New_York,USD,High,CPI m/m,confirmed
+2026-02-20 08:30,America/New_York,USD,High,Core PCE Price Index m/m,confirmed
+2026-03-06 08:30,America/New_York,USD,High,Non-Farm Employment Change,confirmed
+2026-03-11 08:30,America/New_York,USD,High,CPI m/m,confirmed
+2026-03-13 08:30,America/New_York,USD,High,Core PCE Price Index m/m,confirmed
+2026-03-18 14:00,America/New_York,USD,High,FOMC Statement / Federal Funds Rate,confirmed
+2026-03-18 14:30,America/New_York,USD,High,FOMC Press Conference,confirmed
+2026-04-03 08:30,America/New_York,USD,High,Non-Farm Employment Change,confirmed
+2026-04-09 08:30,America/New_York,USD,High,Core PCE Price Index m/m,confirmed
+2026-04-10 08:30,America/New_York,USD,High,CPI m/m,confirmed
+2026-04-29 14:00,America/New_York,USD,High,FOMC Statement / Federal Funds Rate,confirmed
+2026-04-29 14:30,America/New_York,USD,High,FOMC Press Conference,confirmed
+2026-04-30 08:30,America/New_York,USD,High,Core PCE Price Index m/m,confirmed
+2026-05-08 08:30,America/New_York,USD,High,Non-Farm Employment Change,confirmed
+2026-05-12 08:30,America/New_York,USD,High,CPI m/m,confirmed
+2026-05-28 08:30,America/New_York,USD,High,Core PCE Price Index m/m,confirmed
+2026-06-05 08:30,America/New_York,USD,High,Non-Farm Employment Change,confirmed
+2026-06-10 08:30,America/New_York,USD,High,CPI m/m,confirmed
+2026-06-17 14:00,America/New_York,USD,High,FOMC Statement / Federal Funds Rate,confirmed
+2026-06-17 14:30,America/New_York,USD,High,FOMC Press Conference,confirmed
+2026-06-25 08:30,America/New_York,USD,High,Core PCE Price Index m/m,unverified
+2026-07-02 08:30,America/New_York,USD,High,Non-Farm Employment Change,confirmed
+2026-07-14 08:30,America/New_York,USD,High,CPI m/m,confirmed
+2026-07-29 14:00,America/New_York,USD,High,FOMC Statement / Federal Funds Rate,confirmed
+2026-07-29 14:30,America/New_York,USD,High,FOMC Press Conference,confirmed
+2026-07-30 08:30,America/New_York,USD,High,Core PCE Price Index m/m,confirmed
+2026-08-07 08:30,America/New_York,USD,High,Non-Farm Employment Change,confirmed
+2026-08-12 08:30,America/New_York,USD,High,CPI m/m,confirmed
+2026-08-26 08:30,America/New_York,USD,High,Core PCE Price Index m/m,confirmed
+2026-09-04 08:30,America/New_York,USD,High,Non-Farm Employment Change,confirmed
+2026-09-11 08:30,America/New_York,USD,High,CPI m/m,confirmed
+2026-09-16 14:00,America/New_York,USD,High,FOMC Statement / Federal Funds Rate,confirmed
+2026-09-16 14:30,America/New_York,USD,High,FOMC Press Conference,confirmed
+2026-09-30 08:30,America/New_York,USD,High,Core PCE Price Index m/m,confirmed
+2026-10-02 08:30,America/New_York,USD,High,Non-Farm Employment Change,confirmed
+2026-10-14 08:30,America/New_York,USD,High,CPI m/m,confirmed
+2026-10-28 14:00,America/New_York,USD,High,FOMC Statement / Federal Funds Rate,confirmed
+2026-10-28 14:30,America/New_York,USD,High,FOMC Press Conference,confirmed
+2026-10-29 08:30,America/New_York,USD,High,Core PCE Price Index m/m,confirmed
+2026-11-06 08:30,America/New_York,USD,High,Non-Farm Employment Change,confirmed
+2026-11-10 08:30,America/New_York,USD,High,CPI m/m,confirmed
+2026-11-25 08:30,America/New_York,USD,High,Core PCE Price Index m/m,confirmed
+2026-12-04 08:30,America/New_York,USD,High,Non-Farm Employment Change,confirmed
+2026-12-09 14:00,America/New_York,USD,High,FOMC Statement / Federal Funds Rate,confirmed
+2026-12-09 14:30,America/New_York,USD,High,FOMC Press Conference,confirmed
+2026-12-10 08:30,America/New_York,USD,High,CPI m/m,confirmed
+2026-12-23 08:30,America/New_York,USD,High,Core PCE Price Index m/m,confirmed
